@@ -1,26 +1,32 @@
 import { FilmShortCard } from '../../types/film';
 import { useState } from 'react';
+import VideoPlayer from '../video-player/video-player';
 
 type SmallFilmCardProps = {
   film: FilmShortCard;
 }
 
 function SmallFilmCard({film}: SmallFilmCardProps): JSX.Element {
-  const {previewImage, name, id} = film;
+  const {previewImage, name, id, previewVideoLink} = film;
 
-  const [/*selectedFilm*/, setSelectedFilm] = useState('');
+  const [selectedFilm, setSelectedFilm] = useState(null);
 
   return (
     <article
       className="small-film-card catalog__films-card"
       onMouseOver={() => setSelectedFilm(id)}
+      onMouseLeave={() => setSelectedFilm(null)}
     >
-      <div className="small-film-card__image">
-        <img src={previewImage} alt={name} width={280} height={175} />
-      </div>
-      <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">{name}</a>
-      </h3>
+      {selectedFilm && <VideoPlayer src={previewVideoLink} poster={previewImage} />}
+      {!selectedFilm &&
+      <>
+        <div className="small-film-card__image">
+          <img src={previewImage} alt={name} width={280} height={175} />
+        </div>
+        <h3 className="small-film-card__title">
+          <a className="small-film-card__link" href="film-page.html">{name}</a>
+        </h3>
+      </> }
     </article>
   );
 }
