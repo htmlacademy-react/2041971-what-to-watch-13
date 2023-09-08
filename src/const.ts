@@ -1,4 +1,5 @@
 export const GENRES = ['All genres', 'Comedies', 'Crime', 'Documentary', 'Dramas', 'Horror', 'Kids & Family', 'Romance', 'Sci-Fi', 'Thrillers'];
+export const TABS = ['Overview', 'Details', 'Reviews'];
 
 export enum AppRoute {
     Main = '/',
@@ -17,6 +18,7 @@ export enum AuthorizationStatus {
 
 export enum NameSpace {
     Films = 'FILMS',
+    FilmCard = 'FILM_CARD',
     Favorite = 'FAVORITE',
     Promo = 'PROMO',
 }
@@ -24,6 +26,7 @@ export enum NameSpace {
 export const AUTH_TOKEN_KEY_NAME = 'wtw-token';
 export const BACKEND_URL = 'https://13.design.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
+export const DEFAULT_TAB = 'Overview';
 
 export enum APIRoute {
     Films = '/films',

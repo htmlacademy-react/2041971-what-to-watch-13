@@ -1,7 +1,8 @@
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import SmallFilmCard from '../../components/small-film-card/small-film-card';
+//import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import UserBlock from '../../components/user-block/user-block';
+import Tabs from '../../components/tabs/tabs';
 
 function FilmScreen(): JSX.Element {
   return (
@@ -48,19 +49,7 @@ function FilmScreen(): JSX.Element {
               <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
             </div>
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+              <Tabs />
               <div className="film-rating">
                 <div className="film-rating__score">8,9</div>
                 <p className="film-rating__meta">
@@ -82,7 +71,7 @@ function FilmScreen(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__films-list">
-            {Array.from({length: 4}, SmallFilmCard)}
+            {/* {Array.from({length: 4}, SmallFilmCard)} */}
           </div>
         </section>
         <Footer />

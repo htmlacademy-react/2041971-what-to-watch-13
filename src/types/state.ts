@@ -11,6 +11,10 @@ export type FilmsProcess = {
     films: FilmShortCard[];
 }
 
+export type FilmCardProcess = {
+    checkedTab: string;
+}
+
 export type FavoriteProcess = {
     favorite: FilmShortCard[];
 }
