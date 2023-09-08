@@ -5,7 +5,7 @@ type VideoPlayerProps = {
 
 function VideoPlayer({src, poster}: VideoPlayerProps): JSX.Element {
   return (
-    <video src={src} className="player__video" poster={poster} preload="auto"></video>
+    <video src={src} className="player__video" poster={poster} muted autoPlay></video>
   );
 }
 
