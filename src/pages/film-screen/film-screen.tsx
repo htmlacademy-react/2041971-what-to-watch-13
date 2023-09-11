@@ -1,10 +1,20 @@
+import { useAppSelector } from '../../hooks';
+import { getCheckedTab } from '../../store/film-card-process/film-card-process.selector';
+import { TABS } from '../../const';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-//import SmallFilmCard from '../../components/small-film-card/small-film-card';
+import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import UserBlock from '../../components/user-block/user-block';
 import Tabs from '../../components/tabs/tabs';
+import FilmOverview from '../../components/film-overview/film-overview';
+import FilmDetails from '../../components/film-details/film-details';
+import FilmReviews from '../../components/film-reviews/film-reviews';
+import { getFilms } from '../../store/films-process/films-process.selector';
 
 function FilmScreen(): JSX.Element {
+  const checkedTab = useAppSelector(getCheckedTab);
+  const films = useAppSelector(getFilms).slice(0, 4);
+
   return (
     <>
       <section className="film-card film-card--full">
@@ -50,19 +60,9 @@ function FilmScreen(): JSX.Element {
             </div>
             <div className="film-card__desc">
               <Tabs />
-              <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
-                </p>
-              </div>
-              <div className="film-card__text">
-                <p>In the 1930s the Grand Budapest Hotel is a popular European ski resort presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy becomes Gustave friend and protege.</p>
-                <p>Gustave prides himself on providing first-className service to the hotel guests including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave lovers dies mysteriously Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-                <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
-                <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
-              </div>
+              {checkedTab === TABS[0] && <FilmOverview />}
+              {checkedTab === TABS[1] && <FilmDetails />}
+              {checkedTab === TABS[2] && <FilmReviews />}
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@ function FilmScreen(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__films-list">
-            {/* {Array.from({length: 4}, SmallFilmCard)} */}
+            {films.map((film) => <SmallFilmCard key={film.id} film={film} />)}
           </div>
         </section>
         <Footer />
