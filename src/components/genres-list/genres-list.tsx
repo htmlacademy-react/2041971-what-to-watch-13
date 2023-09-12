@@ -1,10 +1,40 @@
-import { GENRES } from '../../const';
+import classNames from 'classnames';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getCheckedGenre } from '../../store/films-process/films-process.selector';
+import { changeGenre } from '../../store/films-process/films-process.slice';
+import { getFilms } from '../../store/films-process/films-process.selector';
+import { getCurrentGenresList } from '../../utils';
 
 function GenresList(): JSX.Element {
+  const films = useAppSelector(getFilms);
+  const genresList = getCurrentGenresList(films);
+
+  const checkedGenre = useAppSelector(getCheckedGenre);
+  const dispatch = useAppDispatch();
+
+  const handleGenreClick = (genre: string) => {
+    dispatch(changeGenre(genre));
+  };
+
   return (
     <ul className="catalog__genres-list">
-      {GENRES.map((genre) => <li key={genre} className="catalog__genres-item catalog__genres-item--active"><a href="#" className="catalog__genres-link">{genre}</a></li>
-      )}
+      {genresList.map((genre) =>
+        (
+          <li
+            key={genre}
+            className={classNames('catalog__genres-item',
+              {'catalog__genres-item--active': genre === checkedGenre})}
+          >
+            <a href="#"
+              className="catalog__genres-link"
+              onClick={(evt) => {
+                evt.preventDefault();
+                handleGenreClick(genre);
+              }}
+            >{genre}
+            </a>
+          </li>
+        ))}
     </ul>
   );
 }

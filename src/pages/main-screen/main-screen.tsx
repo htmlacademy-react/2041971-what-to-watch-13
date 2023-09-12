@@ -2,6 +2,7 @@ import FilmCard from '../../components/film-card/film-card';
 import GenresList from '../../components/genres-list/genres-list';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 
 function MainScreen(): JSX.Element {
   return(
@@ -13,7 +14,7 @@ function MainScreen(): JSX.Element {
           <GenresList />
           <FilmsList />
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            <ShowMoreButton />
           </div>
         </section>
         <Footer />

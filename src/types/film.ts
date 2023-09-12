@@ -23,6 +23,7 @@ export type FilmShortCard = {
     name: string;
     previewImage: string;
     previewVideoLink: string;
+    genre: string;
 };
 
 export type PromoFilmCard = {

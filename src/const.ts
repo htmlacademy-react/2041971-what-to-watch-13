@@ -27,6 +27,7 @@ export const AUTH_TOKEN_KEY_NAME = 'wtw-token';
 export const BACKEND_URL = 'https://13.design.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_TAB = 'Overview';
+export const DEFAULT_GENRE = 'All genres';
 
 export enum APIRoute {
     Films = '/films',

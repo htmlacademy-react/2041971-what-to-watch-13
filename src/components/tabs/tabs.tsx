@@ -7,7 +7,7 @@ import { changeTab } from '../../store/film-card-process/film-card-process.slice
 function Tabs(): JSX.Element {
   const dispatch = useAppDispatch();
   const checkedTab = useAppSelector(getCheckedTab);
-  const handleTabCheck = (tab: string) => {
+  const handleTabClick = (tab: string) => {
     dispatch(changeTab(tab));
   };
 
@@ -21,7 +21,7 @@ function Tabs(): JSX.Element {
               className="film-nav__link"
               onClick={(evt) => {
                 evt.preventDefault();
-                handleTabCheck(tab);
+                handleTabClick(tab);
               }}
             >{tab}
             </a>
