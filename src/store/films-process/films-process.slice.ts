@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FilmsProcess } from '../../types/state';
-import { NameSpace } from '../../const';
+import { DEFAULT_FILMS_COUNT, NameSpace, DEFAULT_GENRE } from '../../const';
 import { fetchFilmsAction } from '../api-actions';
-import { DEFAULT_GENRE } from '../../const';
 
 const initialState: FilmsProcess = {
   films: [],
+  filmsCount: DEFAULT_FILMS_COUNT,
   checkedGenre: DEFAULT_GENRE,
 };
 
@@ -15,6 +15,12 @@ export const filmsProcess = createSlice({
   reducers: {
     changeGenre: (state, action: PayloadAction<string>) => {
       state.checkedGenre = action.payload;
+    },
+    changeFilmsCount: (state) => {
+      state.filmsCount += DEFAULT_FILMS_COUNT;
+    },
+    resetFilmsCount: (state) => {
+      state.filmsCount = DEFAULT_FILMS_COUNT;
     }
   },
   extraReducers(builder) {
@@ -25,4 +31,4 @@ export const filmsProcess = createSlice({
   }
 });
 
-export const {changeGenre} = filmsProcess.actions;
+export const {changeGenre, changeFilmsCount, resetFilmsCount} = filmsProcess.actions;

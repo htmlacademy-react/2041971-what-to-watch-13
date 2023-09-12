@@ -3,8 +3,11 @@ import GenresList from '../../components/genres-list/genres-list';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
+// import { useAppSelector } from '../../hooks';
+// import { getFilmsCount } from '../../store/films-process/films-process.selector';
 
 function MainScreen(): JSX.Element {
+
   return(
     <>
       <FilmCard />

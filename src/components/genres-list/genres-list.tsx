@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCheckedGenre } from '../../store/films-process/films-process.selector';
-import { changeGenre } from '../../store/films-process/films-process.slice';
+import { changeGenre, resetFilmsCount } from '../../store/films-process/films-process.slice';
 import { getFilms } from '../../store/films-process/films-process.selector';
 import { getCurrentGenresList } from '../../utils';
 
@@ -14,6 +14,7 @@ function GenresList(): JSX.Element {
 
   const handleGenreClick = (genre: string) => {
     dispatch(changeGenre(genre));
+    dispatch(resetFilmsCount());
   };
 
   return (
