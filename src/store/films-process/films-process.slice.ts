@@ -8,6 +8,7 @@ const initialState: FilmsProcess = {
   filmsCount: DEFAULT_FILMS_COUNT,
   filmsByGenreCount: 0,
   checkedGenre: DEFAULT_GENRE,
+  isFilmsLoading: false,
 };
 
 export const filmsProcess = createSlice({
@@ -29,8 +30,12 @@ export const filmsProcess = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(fetchFilmsAction.pending, (state) => {
+        state.isFilmsLoading = true;
+      })
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
         state.films = action.payload;
+        state.isFilmsLoading = false;
       });
   }
 });

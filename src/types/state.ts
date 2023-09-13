@@ -12,6 +12,7 @@ export type FilmsProcess = {
     filmsCount: number;
     filmsByGenreCount: number;
     checkedGenre: string;
+    isFilmsLoading: boolean;
 }
 
 export type FilmCardProcess = {
