@@ -1,4 +1,3 @@
-export const GENRES = ['All genres', 'Comedies', 'Crime', 'Documentary', 'Dramas', 'Horror', 'Kids & Family', 'Romance', 'Sci-Fi', 'Thrillers'];
 export const TABS = ['Overview', 'Details', 'Reviews'];
 
 export enum AppRoute {

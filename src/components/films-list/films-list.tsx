@@ -1,14 +1,22 @@
+import { useEffect } from 'react';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getCheckedGenre, getFilms, getFilmsCount } from '../../store/films-process/films-process.selector';
 import { getCurrentFilmsList } from '../../utils';
+import { setFilmsCountByGenre } from '../../store/films-process/films-process.slice';
 
 function FilmsList(): JSX.Element {
   const films = useAppSelector(getFilms);
   const genre = useAppSelector(getCheckedGenre);
   const filmsCount = useAppSelector(getFilmsCount);
+  const dispatch = useAppDispatch();
+  const filmsByGenre = getCurrentFilmsList(films, genre);
 
-  const currentFilmsList = getCurrentFilmsList(films, genre).slice(0, filmsCount);
+  useEffect(() => {
+    dispatch(setFilmsCountByGenre(filmsByGenre.length));
+  }, [filmsByGenre, dispatch]);
+
+  const currentFilmsList = filmsByGenre.slice(0, filmsCount);
 
   return (
     <div className="catalog__films-list">

@@ -6,6 +6,7 @@ import { fetchFilmsAction } from '../api-actions';
 const initialState: FilmsProcess = {
   films: [],
   filmsCount: DEFAULT_FILMS_COUNT,
+  filmsByGenreCount: 0,
   checkedGenre: DEFAULT_GENRE,
 };
 
@@ -21,6 +22,9 @@ export const filmsProcess = createSlice({
     },
     resetFilmsCount: (state) => {
       state.filmsCount = DEFAULT_FILMS_COUNT;
+    },
+    setFilmsCountByGenre: (state, action: PayloadAction<number>) => {
+      state.filmsByGenreCount = action.payload;
     }
   },
   extraReducers(builder) {
@@ -31,4 +35,4 @@ export const filmsProcess = createSlice({
   }
 });
 
-export const {changeGenre, changeFilmsCount, resetFilmsCount} = filmsProcess.actions;
+export const { changeGenre, changeFilmsCount, resetFilmsCount, setFilmsCountByGenre } = filmsProcess.actions;

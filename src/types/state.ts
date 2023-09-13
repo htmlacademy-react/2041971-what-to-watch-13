@@ -10,6 +10,7 @@ export type UserProcess = {
 export type FilmsProcess = {
     films: FilmShortCard[];
     filmsCount: number;
+    filmsByGenreCount: number;
     checkedGenre: string;
 }
 
