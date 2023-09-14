@@ -1,5 +1,6 @@
-import Logo from '../logo/logo';
-import UserBlock from '../user-block/user-block';
+//import Logo from '../logo/logo';
+//import UserBlock from '../user-block/user-block';
+import Header from '../header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getPromoFilm } from '../../store/promo-film-process/promo-film-process.selector';
@@ -17,14 +18,15 @@ function FilmCard():JSX.Element {
 
   return (
     <section className="film-card">
-      <div className="film-card__bg">
+      <Header />
+      {/* <div className="film-card__bg">
         <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <header className="page-header film-card__head">
         <Logo />
         <UserBlock />
-      </header>
+      </header> */}
 
       <div className="film-card__wrap">
         <div className="film-card__info">

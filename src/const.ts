@@ -20,9 +20,11 @@ export enum NameSpace {
     FilmCard = 'FILM_CARD',
     Favorite = 'FAVORITE',
     Promo = 'PROMO',
+    User = 'USER',
 }
 
 export const AUTH_TOKEN_KEY_NAME = 'wtw-token';
+export const USER_EMAIL_KEY_NAME = 'Email';
 export const BACKEND_URL = 'https://13.design.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_TAB = 'Overview';
