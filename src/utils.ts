@@ -13,3 +13,30 @@ export function getCurrentFilmsList(films: FilmShortCard[], genre: string) {
   }
   return films.filter((film) => film.genre === genre);
 }
+
+export function validPassword(password: string | undefined) {
+  if (
+    !password ||
+    password.length < 2 ||
+    !/\d/.test(password) ||
+    !/\D/i.test(password) ||
+    false
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+
+export function validEmail(email: string | undefined) {
+  if (
+    !email ||
+    !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email) ||
+    false
+  ) {
+    return false;
+  }
+
+  return true;
+}
