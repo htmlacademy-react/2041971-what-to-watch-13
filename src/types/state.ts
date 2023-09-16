@@ -4,7 +4,7 @@ import { FilmShortCard, PromoFilmCard } from './film';
 
 export type UserProcess = {
     authorizationStatus: AuthorizationStatus;
-    email: string;
+    avatarUrl: string;
 }
 
 export type FilmsProcess = {

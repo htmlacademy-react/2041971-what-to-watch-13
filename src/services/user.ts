@@ -1,14 +1,14 @@
-import { USER_EMAIL_KEY_NAME } from '../const';
+import { USER_AVATAR_KEY_NAME } from '../const';
 
-export const getUserEmail = (): string => {
-  const userEmail = localStorage.getItem(USER_EMAIL_KEY_NAME);
-  return userEmail ?? '';
+export const getAvatarUrl = (): string => {
+  const userAvatar = localStorage.getItem(USER_AVATAR_KEY_NAME);
+  return userAvatar ?? '';
 };
 
-export const saveUserEmail = (email: string) => {
-  localStorage.setItem(USER_EMAIL_KEY_NAME, email);
+export const saveAvatarUrl = (avatarUrl: string) => {
+  localStorage.setItem(USER_AVATAR_KEY_NAME, avatarUrl);
 };
 
-export const dropUserEmail = (): void => {
-  localStorage.removeItem(USER_EMAIL_KEY_NAME);
+export const dropAvatarUrl = (): void => {
+  localStorage.removeItem(USER_AVATAR_KEY_NAME);
 };

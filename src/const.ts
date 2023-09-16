@@ -24,7 +24,7 @@ export enum NameSpace {
 }
 
 export const AUTH_TOKEN_KEY_NAME = 'wtw-token';
-export const USER_EMAIL_KEY_NAME = 'Email';
+export const USER_AVATAR_KEY_NAME = 'avatar-url';
 export const BACKEND_URL = 'https://13.design.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_TAB = 'Overview';

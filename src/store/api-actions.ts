@@ -7,7 +7,7 @@ import { UserData } from '../types/user-data.';
 import { AuthData } from '../types/auth-data';
 import { APIRoute, AppRoute } from '../const';
 import { dropToken, saveToken } from '../services/token';
-import { dropUserEmail, saveUserEmail } from '../services/user';
+import { dropAvatarUrl, saveAvatarUrl } from '../services/user';
 import { redirectToRoute } from './action';
 
 export const fetchFilmsAction = createAsyncThunk<FilmShortCard[], undefined, {
@@ -68,7 +68,7 @@ extra: AxiosInstance;
   async (login, {dispatch, extra: api}) => {
     const {data} = await api.post<UserData>(APIRoute.Login, login);
     saveToken(data.token);
-    saveUserEmail(data.email);
+    saveAvatarUrl(data.avatarUrl);
     dispatch(redirectToRoute(AppRoute.Main));
     return data;
   },
@@ -84,6 +84,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dropUserEmail();
+    dropAvatarUrl();
   },
 );
