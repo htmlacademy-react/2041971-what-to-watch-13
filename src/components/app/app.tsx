@@ -31,7 +31,7 @@ function App(): JSX.Element {
           <Route element={<MyListScreen />} path={AppRoute.MyList} />
           <Route element={<AddReviewScreen />} path={AppRoute.AddReview} />
         </Route>
-        <Route path={AppRoute.Film} element={<FilmScreen />} />
+        <Route path={`${AppRoute.Film}:id`} element={<FilmScreen />} />
         <Route path={AppRoute.Player} element={<PlayerScreen />} />
         <Route path="*" element={<NotFoundScreen />} />
       </Routes>

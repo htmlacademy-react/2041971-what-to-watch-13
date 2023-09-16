@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { FilmShortCard, PromoFilmCard } from '../types/film';
+import { FilmShortCard, PromoFilmCard, FilmCard } from '../types/film';
 import { State } from '../types/state';
 import { AppDispatch } from '../types/state';
 import { UserData } from '../types/user-data.';
@@ -18,6 +18,18 @@ export const fetchFilmsAction = createAsyncThunk<FilmShortCard[], undefined, {
   'fetchFilms',
   async(_arg, {extra: api}) => {
     const {data} = await api.get<FilmShortCard[]>(APIRoute.Films);
+    return data;
+  }
+);
+
+export const fetchFilmByIdAction = createAsyncThunk<FilmCard, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchFilmById',
+  async(id, {extra: api}) => {
+    const {data} = await api.get<FilmCard>(`${APIRoute.Films}/${id}`);
     return data;
   }
 );

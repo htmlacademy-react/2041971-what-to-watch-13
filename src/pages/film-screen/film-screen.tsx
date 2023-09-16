@@ -1,5 +1,5 @@
-import { useAppSelector } from '../../hooks';
-import { getCheckedTab } from '../../store/film-card-process/film-card-process.selector';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getCheckedTab, getFilmById } from '../../store/film-card-process/film-card-process.selector';
 import { TABS } from '../../const';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
@@ -10,10 +10,22 @@ import FilmOverview from '../../components/film-overview/film-overview';
 import FilmDetails from '../../components/film-details/film-details';
 import FilmReviews from '../../components/film-reviews/film-reviews';
 import { getFilms } from '../../store/films-process/films-process.selector';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { fetchFilmByIdAction } from '../../store/api-actions';
 
 function FilmScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const film = useAppSelector(getFilmById);
   const checkedTab = useAppSelector(getCheckedTab);
   const films = useAppSelector(getFilms).slice(0, 4);
+  const {id} = useParams();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchFilmByIdAction(id));
+    }
+  }, [id, dispatch]);
 
   return (
     <>
