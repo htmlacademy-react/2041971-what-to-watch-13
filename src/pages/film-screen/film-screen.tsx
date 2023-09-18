@@ -1,29 +1,28 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getCheckedTab, getFilmById } from '../../store/film-card-process/film-card-process.selector';
+import { getCheckedTab, getFilmById, getSimilarFilms } from '../../store/film-card-process/film-card-process.selector';
 import { TABS } from '../../const';
 import Footer from '../../components/footer/footer';
-import Logo from '../../components/logo/logo';
+import Header from '../../components/header/header';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
-import UserBlock from '../../components/user-block/user-block';
 import Tabs from '../../components/tabs/tabs';
 import FilmOverview from '../../components/film-overview/film-overview';
 import FilmDetails from '../../components/film-details/film-details';
 import FilmReviews from '../../components/film-reviews/film-reviews';
-import { getFilms } from '../../store/films-process/films-process.selector';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { fetchFilmByIdAction } from '../../store/api-actions';
+import { fetchFilmByIdAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 
 function FilmScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const film = useAppSelector(getFilmById);
+  const filmById = useAppSelector(getFilmById);
   const checkedTab = useAppSelector(getCheckedTab);
-  const films = useAppSelector(getFilms).slice(0, 4);
+  const similarFilms = useAppSelector(getSimilarFilms).slice(0, 4);
   const {id} = useParams();
 
   useEffect(() => {
     if (id) {
       dispatch(fetchFilmByIdAction(id));
+      dispatch(fetchSimilarFilmsAction(id));
     }
   }, [id, dispatch]);
 
@@ -31,20 +30,15 @@ function FilmScreen(): JSX.Element {
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
-          </div>
-          <h1 className="visually-hidden">WTW</h1>
-          <header className="page-header film-card__head">
-            <Logo />
-            <UserBlock />
-          </header>
+          <Header >
+            <h1 className="visually-hidden">WTW</h1>
+          </Header>
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{filmById?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{filmById?.genre}</span>
+                <span className="film-card__year">{filmById?.released}</span>
               </p>
               <div className="film-card__buttons">
                 <button className="btn btn--play film-card__button" type="button">
@@ -68,13 +62,13 @@ function FilmScreen(): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={filmById?.posterImage} alt={filmById?.name} width="218" height="327" />
             </div>
             <div className="film-card__desc">
               <Tabs />
-              {checkedTab === TABS[0] && <FilmOverview />}
-              {checkedTab === TABS[1] && <FilmDetails />}
-              {checkedTab === TABS[2] && <FilmReviews />}
+              {checkedTab === TABS[0] && <FilmOverview film={filmById} />}
+              {checkedTab === TABS[1] && <FilmDetails film={filmById} />}
+              {checkedTab === TABS[2] && <FilmReviews id={filmById?.id} />}
             </div>
           </div>
         </div>
@@ -83,7 +77,7 @@ function FilmScreen(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__films-list">
-            {films.map((film) => <SmallFilmCard key={film.id} film={film} />)}
+            {similarFilms.map((similarFilm) => <SmallFilmCard key={similarFilm.id} film={similarFilm} />)}
           </div>
         </section>
         <Footer />

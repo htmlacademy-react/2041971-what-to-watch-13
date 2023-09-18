@@ -30,6 +30,7 @@ export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_TAB = 'Overview';
 export const DEFAULT_GENRE = 'All genres';
 export const DEFAULT_FILMS_COUNT = 8;
+export const DURATION_DIGIT = 60;
 
 export enum APIRoute {
     Films = '/films',
@@ -37,4 +38,15 @@ export enum APIRoute {
     Promo = '/promo',
     Login = '/login',
     Logout = '/logout',
+    Comments = '/comments',
 }
+
+export enum Rating {
+  Bad = 'Bad',
+  Normal = 'Normal',
+  Good = 'Good',
+  VeryGood ='Very good',
+  Awesome = 'Awesome',
+  Default = '',
+}
+

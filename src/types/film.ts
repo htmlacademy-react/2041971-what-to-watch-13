@@ -1,5 +1,5 @@
 export type FilmCard = {
-    id: number;
+    id: string;
     name: string;
     posterImage: string;
     backgroundImage: string;

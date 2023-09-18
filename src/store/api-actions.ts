@@ -9,6 +9,7 @@ import { APIRoute, AppRoute } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { dropAvatarUrl, saveAvatarUrl } from '../services/user';
 import { redirectToRoute } from './action';
+import { Comment } from '../types/comment';
 
 export const fetchFilmsAction = createAsyncThunk<FilmShortCard[], undefined, {
     dispatch: AppDispatch;
@@ -30,6 +31,30 @@ export const fetchFilmByIdAction = createAsyncThunk<FilmCard, string, {
   'fetchFilmById',
   async(id, {extra: api}) => {
     const {data} = await api.get<FilmCard>(`${APIRoute.Films}/${id}`);
+    return data;
+  }
+);
+
+export const fetchSimilarFilmsAction = createAsyncThunk<FilmShortCard[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchSimilarFilms',
+  async(id, {extra: api}) => {
+    const {data} = await api.get<FilmShortCard[]>(`${APIRoute.Films}/${id}/similar`);
+    return data;
+  }
+);
+
+export const fetchCommentsAction = createAsyncThunk<Comment[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchComments',
+  async(id, {extra: api}) => {
+    const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
     return data;
   }
 );

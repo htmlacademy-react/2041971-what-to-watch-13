@@ -1,6 +1,7 @@
 import { store } from '../store/index';
 import { AuthorizationStatus } from '../const';
 import { FilmCard, FilmShortCard, PromoFilmCard } from './film';
+import { Comment } from './comment';
 
 export type UserProcess = {
     authorizationStatus: AuthorizationStatus;
@@ -16,7 +17,9 @@ export type FilmsProcess = {
 }
 
 export type FilmCardProcess = {
-    film: FilmCard;
+    film: FilmCard | null;
+    similarFilms: FilmShortCard[];
+    comments: Comment[];
     checkedTab: string;
 }
 
