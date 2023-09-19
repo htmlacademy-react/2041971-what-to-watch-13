@@ -50,3 +50,7 @@ export enum Rating {
   Default = '',
 }
 
+export const DateFormat = {
+  DATE_TIME_FORMAT: 'YYYY-MM-DD',
+  REVIEW_DATE_FORMAT: 'MMMM DD, YYYY',
+};

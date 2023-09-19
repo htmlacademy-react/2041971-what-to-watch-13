@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCheckedTab, getFilmById, getSimilarFilms } from '../../store/film-card-process/film-card-process.selector';
-import { TABS } from '../../const';
+import { AppRoute, TABS } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
@@ -8,7 +8,7 @@ import Tabs from '../../components/tabs/tabs';
 import FilmOverview from '../../components/film-overview/film-overview';
 import FilmDetails from '../../components/film-details/film-details';
 import FilmReviews from '../../components/film-reviews/film-reviews';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchFilmByIdAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 
@@ -30,7 +30,7 @@ function FilmScreen(): JSX.Element {
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <Header >
+          <Header isFilmCard >
             <h1 className="visually-hidden">WTW</h1>
           </Header>
           <div className="film-card__wrap">
@@ -54,7 +54,11 @@ function FilmScreen(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link
+                  to={AppRoute.AddReview}
+                  className="btn film-card__button"
+                >Add review
+                </Link>
               </div>
             </div>
           </div>

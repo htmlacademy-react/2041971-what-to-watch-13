@@ -1,11 +1,13 @@
 import { Comment } from '../../types/comment';
+import { getDataFormat } from '../../utils';
+import { DateFormat } from '../../const';
 
 type ReviewProps = {
   comment: Comment;
 }
 
 function Review({comment}: ReviewProps): JSX.Element {
-  const {user, rating} = comment;
+  const {user, rating, date} = comment;
 
   return (
     <div className="review">
@@ -14,7 +16,7 @@ function Review({comment}: ReviewProps): JSX.Element {
 
         <footer className="review__details">
           <cite className="review__author">{user}</cite>
-          <time className="review__date" dateTime="2016-12-24">December 24, 2016</time>
+          <time className="review__date" dateTime={getDataFormat(date, DateFormat.DATE_TIME_FORMAT)}>{getDataFormat(date, DateFormat.REVIEW_DATE_FORMAT)}</time>
         </footer>
       </blockquote>
 

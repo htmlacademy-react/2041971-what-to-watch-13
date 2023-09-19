@@ -5,20 +5,24 @@ import UserBlock from '../user-block/user-block';
 import HeadGuest from '../head-guest/head-guest';
 import { AuthorizationStatus } from '../../const';
 import { getPromoFilm } from '../../store/promo-film-process/promo-film-process.selector';
+import { getFilmById } from '../../store/film-card-process/film-card-process.selector';
 
 type HeaderProps = {
     children?: React.ReactNode;
+    isFilmCard?: boolean;
 }
 
-function Header({children}: HeaderProps): JSX.Element {
+function Header({children, isFilmCard}: HeaderProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const promoFilm = useAppSelector(getPromoFilm);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+  const film = useAppSelector(getFilmById);
 
   return (
     <>
       <div className="film-card__bg">
-        {isAuth ? <img src={promoFilm?.backgroundImage} alt={promoFilm?.name} /> : <img src="img/bg-header.jpg" /> }
+        {isFilmCard && <img src={film.backgroundImage} alt={film.name} />}
+        {isAuth && !isFilmCard ? <img src={promoFilm?.backgroundImage} alt={promoFilm?.name} /> : <img src="img/bg-header.jpg" /> }
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <header className="page-header film-card__head">

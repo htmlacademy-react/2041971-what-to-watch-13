@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { FilmShortCard } from './types/film';
 import { DEFAULT_GENRE, Rating, DURATION_DIGIT } from './const';
 
@@ -60,4 +61,8 @@ export function getTextRating(rating: number): Rating {
 
 export function getFormatDuration(duration: number) {
   return `${Math.floor(duration / DURATION_DIGIT)}h ${duration % DURATION_DIGIT}m`;
+}
+
+export function getDataFormat(data: string, format: string):string {
+  return dayjs(data).format(format);
 }
