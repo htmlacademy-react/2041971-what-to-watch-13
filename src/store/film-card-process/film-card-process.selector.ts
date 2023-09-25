@@ -7,3 +7,4 @@ export const getCheckedTab = (state: State): string => state[NameSpace.FilmCard]
 export const getFilmById = (state: State): FilmCard => state[NameSpace.FilmCard].film;
 export const getSimilarFilms = (state: State): FilmShortCard[] => state[NameSpace.FilmCard].similarFilms;
 export const getComments = (state: State): Comment[] => state[NameSpace.FilmCard].comments;
+export const getFilmCardLoadingStatus = (state: State): boolean => state[NameSpace.FilmCard].isFilmCardLoading;

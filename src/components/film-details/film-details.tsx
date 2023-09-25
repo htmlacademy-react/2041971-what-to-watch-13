@@ -17,8 +17,7 @@ function FilmDetails({film}: FilmDetailsProps): JSX.Element {
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
-          <span className="film-card__details-value">{starring?.map((actor, i) => <> {(i === starring.length - 1) ? actor : `${actor},`}{<br key={actor} />}</>)}
-
+          <span className="film-card__details-value">{starring?.map((actor, i) => <>{(i === starring.length - 1) ? actor : `${actor},`}{<br key={actor} />}</>)}
           </span>
         </p>
       </div>

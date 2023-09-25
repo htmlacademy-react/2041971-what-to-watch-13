@@ -8,6 +8,7 @@ const initialState: FilmCardProcess = {
   similarFilms: [],
   comments: [],
   checkedTab: DEFAULT_TAB,
+  isFilmCardLoading: false,
 };
 
 export const filmCardProcess = createSlice({
@@ -20,8 +21,12 @@ export const filmCardProcess = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(fetchFilmByIdAction.pending, (state) => {
+        state.isFilmCardLoading = true;
+      })
       .addCase(fetchFilmByIdAction.fulfilled, (state, action) => {
         state.film = action.payload;
+        state.isFilmCardLoading = false;
       })
       .addCase(fetchSimilarFilmsAction.fulfilled, (state, action) => {
         state.similarFilms = action.payload;

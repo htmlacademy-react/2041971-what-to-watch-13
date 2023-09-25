@@ -1,15 +1,16 @@
-//import Logo from '../logo/logo';
-//import UserBlock from '../user-block/user-block';
 import Header from '../header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getPromoFilm } from '../../store/promo-film-process/promo-film-process.selector';
 import { fetchPromoFilmAction } from '../../store/api-actions';
 import { getFavoritesLength } from '../../store/favorite-process/favorite-process.selector';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
+import { AuthorizationStatus } from '../../const';
 
 function FilmCard():JSX.Element {
   const promo = useAppSelector(getPromoFilm);
   const favoritesCount = useAppSelector(getFavoritesLength);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -39,13 +40,14 @@ function FilmCard():JSX.Element {
                 </svg>
                 <span>Play</span>
               </button>
+              {authorizationStatus === AuthorizationStatus.Auth &&
               <button className="btn btn--list film-card__button" type="button">
                 <svg viewBox="0 0 19 20" width={19} height={19}>
                   <use xlinkHref="#add"></use>
                 </svg>
                 <span>My list</span>
                 <span className="film-card__count">{favoritesCount}</span>
-              </button>
+              </button>}
             </div>
           </div>
         </div>

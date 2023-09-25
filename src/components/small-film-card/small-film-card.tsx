@@ -12,7 +12,7 @@ function SmallFilmCard({film}: SmallFilmCardProps): JSX.Element {
   const {previewImage, name, previewVideoLink, id} = film;
 
   const [isSelectedFilm, setSelectedFilm] = useState(false);
-  const [isFilmMouseOver, setFilmMouseOver] = useState<boolean>(false);
+  const [isFilmMouseOver, setFilmMouseOver] = useState(false);
 
   useEffect(() => {
     if (isFilmMouseOver) {

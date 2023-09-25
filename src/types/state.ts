@@ -21,6 +21,7 @@ export type FilmCardProcess = {
     similarFilms: FilmShortCard[];
     comments: Comment[];
     checkedTab: string;
+    isFilmCardLoading: boolean;
 }
 
 export type FavoriteProcess = {

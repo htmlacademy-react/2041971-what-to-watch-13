@@ -1,22 +1,21 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getCheckedTab, getFilmById, getSimilarFilms } from '../../store/film-card-process/film-card-process.selector';
-import { AppRoute, TABS } from '../../const';
+import { getFilmById, getFilmCardLoadingStatus, getSimilarFilms } from '../../store/film-card-process/film-card-process.selector';
+import { AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import Tabs from '../../components/tabs/tabs';
-import FilmOverview from '../../components/film-overview/film-overview';
-import FilmDetails from '../../components/film-details/film-details';
-import FilmReviews from '../../components/film-reviews/film-reviews';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchFilmByIdAction, fetchSimilarFilmsAction } from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function FilmScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const filmById = useAppSelector(getFilmById);
-  const checkedTab = useAppSelector(getCheckedTab);
   const similarFilms = useAppSelector(getSimilarFilms).slice(0, 4);
+  const isLoading = useAppSelector(getFilmCardLoadingStatus);
   const {id} = useParams();
 
   useEffect(() => {
@@ -25,6 +24,16 @@ function FilmScreen(): JSX.Element {
       dispatch(fetchSimilarFilmsAction(id));
     }
   }, [id, dispatch]);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (!filmById) {
+    return <NotFoundScreen />;
+  }
+
+  const {name, genre, released, posterImage} = filmById;
 
   return (
     <>
@@ -35,10 +44,10 @@ function FilmScreen(): JSX.Element {
           </Header>
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmById?.name}</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{filmById?.genre}</span>
-                <span className="film-card__year">{filmById?.released}</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
               </p>
               <div className="film-card__buttons">
                 <button className="btn btn--play film-card__button" type="button">
@@ -66,14 +75,9 @@ function FilmScreen(): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={filmById?.posterImage} alt={filmById?.name} width="218" height="327" />
+              <img src={posterImage} alt={name} width="218" height="327" />
             </div>
-            <div className="film-card__desc">
-              <Tabs />
-              {checkedTab === TABS[0] && <FilmOverview film={filmById} />}
-              {checkedTab === TABS[1] && <FilmDetails film={filmById} />}
-              {checkedTab === TABS[2] && <FilmReviews id={filmById?.id} />}
-            </div>
+            <Tabs filmById={filmById} />
           </div>
         </div>
       </section>

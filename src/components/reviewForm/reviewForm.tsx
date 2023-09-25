@@ -1,4 +1,4 @@
-import { Fragment, useState, ChangeEvent } from 'react';
+import { Fragment, useState, ChangeEvent, FormEvent } from 'react';
 const REVIEW_TEXT = 'review-text';
 
 function ReviewForm(): JSX.Element {
@@ -7,7 +7,7 @@ function ReviewForm(): JSX.Element {
     [REVIEW_TEXT]: '',
   });
 
-  const hendelFormDataChange = (evt: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+  const handleFormDataChange = (evt: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     let parsedValue: string | number = value;
 
@@ -20,8 +20,16 @@ function ReviewForm(): JSX.Element {
       [name]: parsedValue});
   };
 
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+  };
+
   return (
-    <form action="#" className="add-review__form">
+    <form
+      action="#"
+      className="add-review__form"
+      onSubmit={handleFormSubmit}
+    >
       <div className="rating">
         <div className="rating__stars">
           {(Array.from({length: 10}, (_, k) => (
@@ -32,7 +40,7 @@ function ReviewForm(): JSX.Element {
                 type="radio"
                 name="rating"
                 value={k + 1}
-                onChange={hendelFormDataChange}
+                onChange={handleFormDataChange}
               />
               <label className="rating__label" htmlFor={`star-${k + 1}`}>{`Rating ${k + 1}`}</label>
             </Fragment>
@@ -46,7 +54,7 @@ function ReviewForm(): JSX.Element {
           name="review-text"
           id="review-text"
           placeholder="Review text"
-          onChange={hendelFormDataChange}
+          onChange={handleFormDataChange}
         >
         </textarea>
         <div className="add-review__submit">

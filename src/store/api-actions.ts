@@ -9,7 +9,7 @@ import { APIRoute, AppRoute } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { dropAvatarUrl, saveAvatarUrl } from '../services/user';
 import { redirectToRoute } from './action';
-import { Comment } from '../types/comment';
+import { Comment, Review } from '../types/comment';
 
 export const fetchFilmsAction = createAsyncThunk<FilmShortCard[], undefined, {
     dispatch: AppDispatch;
@@ -23,15 +23,19 @@ export const fetchFilmsAction = createAsyncThunk<FilmShortCard[], undefined, {
   }
 );
 
-export const fetchFilmByIdAction = createAsyncThunk<FilmCard, string, {
+export const fetchFilmByIdAction = createAsyncThunk<FilmCard | null, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchFilmById',
   async(id, {extra: api}) => {
-    const {data} = await api.get<FilmCard>(`${APIRoute.Films}/${id}`);
-    return data;
+    try {
+      const {data} = await api.get<FilmCard>(`${APIRoute.Films}/${id}`);
+      return data;
+    } catch {
+      return null;
+    }
   }
 );
 
@@ -55,6 +59,18 @@ export const fetchCommentsAction = createAsyncThunk<Comment[], string, {
   'fetchComments',
   async(id, {extra: api}) => {
     const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
+    return data;
+  }
+);
+
+export const fetchSendReviewAction = createAsyncThunk<Review, {id: string; rating: number; comment: string}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchSendReview',
+  async({id, rating, comment}, {extra: api}) => {
+    const {data} = await api.post<Review>(`${APIRoute.Comments}/${id}`, {rating, comment});
     return data;
   }
 );
