@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmById, getFilmCardLoadingStatus, getSimilarFilms } from '../../store/film-card-process/film-card-process.selector';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
@@ -10,12 +10,14 @@ import { useEffect } from 'react';
 import { fetchFilmByIdAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
 
 function FilmScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const filmById = useAppSelector(getFilmById);
   const similarFilms = useAppSelector(getSimilarFilms).slice(0, 4);
   const isLoading = useAppSelector(getFilmCardLoadingStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const {id} = useParams();
 
   useEffect(() => {
@@ -63,11 +65,12 @@ function FilmScreen(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
+                {authorizationStatus === AuthorizationStatus.Auth &&
                 <Link
                   to={AppRoute.AddReview}
                   className="btn film-card__button"
                 >Add review
-                </Link>
+                </Link>}
               </div>
             </div>
           </div>

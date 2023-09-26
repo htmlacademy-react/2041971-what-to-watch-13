@@ -9,7 +9,7 @@ import { APIRoute, AppRoute } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { dropAvatarUrl, saveAvatarUrl } from '../services/user';
 import { redirectToRoute } from './action';
-import { Comment, Review } from '../types/comment';
+import { Comment } from '../types/comment';
 
 export const fetchFilmsAction = createAsyncThunk<FilmShortCard[], undefined, {
     dispatch: AppDispatch;
@@ -63,15 +63,15 @@ export const fetchCommentsAction = createAsyncThunk<Comment[], string, {
   }
 );
 
-export const fetchSendReviewAction = createAsyncThunk<Review, {id: string; rating: number; comment: string}, {
+export const fetchSendReviewAction = createAsyncThunk<void, {id: string; rating: number; comment: string}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchSendReview',
-  async({id, rating, comment}, {extra: api}) => {
-    const {data} = await api.post<Review>(`${APIRoute.Comments}/${id}`, {rating, comment});
-    return data;
+  async({id, rating, comment}, {dispatch, extra: api}) => {
+    await api.post<void>(`${APIRoute.Comments}/${id}`, {rating, comment});
+    dispatch(redirectToRoute(`${AppRoute.Film}${id}`));
   }
 );
 
@@ -121,7 +121,7 @@ extra: AxiosInstance;
   async (login, {dispatch, extra: api}) => {
     const {data} = await api.post<UserData>(APIRoute.Login, login);
     saveToken(data.token);
-    saveAvatarUrl(data.avatarUrl);
+    saveAvatarUrl(String(data.avatarUrl));
     dispatch(redirectToRoute(AppRoute.Main));
     return data;
   },

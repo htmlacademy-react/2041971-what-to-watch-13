@@ -15,7 +15,7 @@ export function getCurrentFilmsList(films: FilmShortCard[], genre: string) {
   return films.filter((film) => film.genre === genre);
 }
 
-export function validPassword(password: string | undefined) {
+export function validatePassword(password: string | undefined) {
   if (
     !password ||
     password.length < 2 ||
@@ -30,7 +30,7 @@ export function validPassword(password: string | undefined) {
 }
 
 
-export function validEmail(email: string | undefined) {
+export function validateEmail(email: string | undefined) {
   if (
     !email ||
     !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email) ||
@@ -65,4 +65,8 @@ export function getFormatDuration(duration: number) {
 
 export function getDataFormat(data: string, format: string):string {
   return dayjs(data).format(format);
+}
+
+export function validateComment(comment: string) {
+  return comment.length >= 50 && comment.length <= 400;
 }

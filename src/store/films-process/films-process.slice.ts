@@ -18,6 +18,9 @@ export const filmsProcess = createSlice({
     changeGenre: (state, action: PayloadAction<string>) => {
       state.checkedGenre = action.payload;
     },
+    resetFilmGenre: (state) => {
+      state.checkedGenre = DEFAULT_GENRE;
+    },
     changeFilmsCount: (state) => {
       state.filmsCount += DEFAULT_FILMS_COUNT;
     },
@@ -40,4 +43,4 @@ export const filmsProcess = createSlice({
   }
 });
 
-export const { changeGenre, changeFilmsCount, resetFilmsCount, setFilmsCountByGenre } = filmsProcess.actions;
+export const { changeGenre, resetFilmGenre, changeFilmsCount, resetFilmsCount, setFilmsCountByGenre } = filmsProcess.actions;

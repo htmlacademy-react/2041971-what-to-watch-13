@@ -1,12 +1,17 @@
-import ReviewForm from '../../components/reviewForm/reviewForm';
+import ReviewForm from '../../components/review-form/review-form';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 import { getFilmById } from '../../store/film-card-process/film-card-process.selector';
 import { Link } from 'react-router-dom';
 import { APIRoute } from '../../const';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function AddReviewScreen(): JSX.Element {
   const film = useAppSelector(getFilmById);
+
+  if(!film) {
+    return <NotFoundScreen />;
+  }
 
   return (
     <section className="film-card film-card--full">
@@ -31,7 +36,7 @@ function AddReviewScreen(): JSX.Element {
       </div>
 
       <div className="add-review">
-        <ReviewForm />
+        <ReviewForm id={film.id} />
       </div>
 
     </section>

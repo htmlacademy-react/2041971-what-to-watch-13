@@ -1,7 +1,7 @@
 import { store } from '../store/index';
 import { AuthorizationStatus } from '../const';
 import { FilmCard, FilmShortCard, PromoFilmCard } from './film';
-import { Comment } from './comment';
+import { Comment, Review } from './comment';
 
 export type UserProcess = {
     authorizationStatus: AuthorizationStatus;
@@ -20,8 +20,11 @@ export type FilmCardProcess = {
     film: FilmCard | null;
     similarFilms: FilmShortCard[];
     comments: Comment[];
+    comment: Review | null;
     checkedTab: string;
     isFilmCardLoading: boolean;
+    isCommentSending: boolean;
+    hasCommentSendingError: boolean;
 }
 
 export type FavoriteProcess = {

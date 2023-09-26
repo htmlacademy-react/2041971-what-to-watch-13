@@ -6,7 +6,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { Navigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import { AuthData } from '../../types/auth-data';
-import { validEmail, validPassword } from '../../utils';
+import { validateEmail, validatePassword } from '../../utils';
 import { loginAction } from '../../store/api-actions';
 
 function AuthScreen(): JSX.Element {
@@ -25,8 +25,8 @@ function AuthScreen(): JSX.Element {
     const form = evt.currentTarget;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData) as AuthData;
-    setIsPasswordValid(validPassword(data.password));
-    setIsEmailValid(validEmail(data.email));
+    setIsPasswordValid(validatePassword(data.password));
+    setIsEmailValid(validateEmail(data.email));
 
     if (data !== null && isPasswordValid && isEmailValid) {
       dispatch(loginAction(data));
@@ -51,12 +51,12 @@ function AuthScreen(): JSX.Element {
               <input className="sign-in__input" type="email" placeholder="Email address" name="email" id="user-email" />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
-            {!isEmailValid && <div className="sign-in__field"><p>Введите корректный email.</p></div>}
+            {!isEmailValid && <div className="sign-in__message"><p>Please enter a valid email address</p></div>}
             <div className="sign-in__field">
               <input className="sign-in__input" type="password" placeholder="Password" name="password" id="user-password" />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
-            {!isPasswordValid && <div className="sign-in__field"><p>Пароль должен состоять минимум из одной буквы и цифры.</p></div>}
+            {!isPasswordValid && <div className="sign-in__message"><p>Please enter a valid password</p></div>}
           </div>
           <div className="sign-in__submit">
             <button className="sign-in__btn" type="submit">Sign in</button>

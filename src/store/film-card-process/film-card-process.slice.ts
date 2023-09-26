@@ -1,14 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FilmCardProcess } from '../../types/state';
 import { NameSpace, DEFAULT_TAB } from '../../const';
-import { fetchCommentsAction, fetchFilmByIdAction, fetchSimilarFilmsAction } from '../api-actions';
+import { fetchCommentsAction, fetchFilmByIdAction, fetchSendReviewAction, fetchSimilarFilmsAction } from '../api-actions';
 
 const initialState: FilmCardProcess = {
   film: null,
   similarFilms: [],
   comments: [],
+  comment: null,
   checkedTab: DEFAULT_TAB,
   isFilmCardLoading: false,
+  isCommentSending: false,
+  hasCommentSendingError: false,
 };
 
 export const filmCardProcess = createSlice({
@@ -33,6 +36,18 @@ export const filmCardProcess = createSlice({
       })
       .addCase(fetchCommentsAction.fulfilled, (state, action) => {
         state.comments = action.payload;
+      })
+      .addCase(fetchSendReviewAction.pending, (state)=> {
+        state.hasCommentSendingError = false;
+        state.isCommentSending = true;
+      })
+      .addCase(fetchSendReviewAction.fulfilled, (state)=> {
+        state.hasCommentSendingError = false;
+        state.isCommentSending = false;
+      })
+      .addCase(fetchSendReviewAction.rejected, (state) => {
+        state.hasCommentSendingError = true;
+        state.isCommentSending = false;
       });
   }
 });
