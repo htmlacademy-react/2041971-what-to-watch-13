@@ -1,7 +1,7 @@
 import { FilmShortCard } from '../../types/film';
 import { useEffect, useState } from 'react';
 import VideoPlayer from '../video-player/video-player';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 type SmallFilmCardProps = {
@@ -10,7 +10,7 @@ type SmallFilmCardProps = {
 
 function SmallFilmCard({film}: SmallFilmCardProps): JSX.Element {
   const {previewImage, name, previewVideoLink, id} = film;
-
+  const navigate = useNavigate();
   const [isSelectedFilm, setSelectedFilm] = useState(false);
   const [isFilmMouseOver, setFilmMouseOver] = useState(false);
 
@@ -33,7 +33,10 @@ function SmallFilmCard({film}: SmallFilmCardProps): JSX.Element {
     >
       {isSelectedFilm ? <VideoPlayer src={previewVideoLink} poster={previewImage} /> :
         <>
-          <div className="small-film-card__image">
+          <div
+            className="small-film-card__image"
+            onClick={() => navigate(`${AppRoute.Film}${id}`)}
+          >
             <img src={previewImage} alt={name} width={280} height={175} />
           </div>
           <h3 className="small-film-card__title">

@@ -4,21 +4,17 @@ import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getFilmsCount, getFilmsCountByGenre, getFilmsLoadingStatus } from '../../store/films-process/films-process.selector';
-import { resetFilmGenre, resetFilmsCount } from '../../store/films-process/films-process.slice';
-import { useEffect } from 'react';
+import { useAppSelector } from '../../hooks';
+import { getFilmsCountByGenre, getFilmsLoadingStatus } from '../../store/films-process/films-process.selector';
+import { DEFAULT_FILMS_COUNT, DEFAULT_GENRE } from '../../const';
+import { useState } from 'react';
 
 function MainScreen(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const shownFilmsCount = useAppSelector(getFilmsCount);
-  const setFilmsCountByGenre = useAppSelector(getFilmsCountByGenre);
+  const filmsCountByGenre = useAppSelector(getFilmsCountByGenre);
   const isLoading = useAppSelector(getFilmsLoadingStatus);
 
-  useEffect(() => {
-    dispatch(resetFilmGenre);
-    dispatch(resetFilmsCount);
-  },[dispatch]);
+  const [checkedGenre, setCheckedGenre] = useState(DEFAULT_GENRE);
+  const [filmsCount, setFilmsCount] = useState(DEFAULT_FILMS_COUNT);
 
   return(
     <>
@@ -26,10 +22,10 @@ function MainScreen(): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList />
-          {isLoading ? <LoadingScreen /> : <FilmsList />}
+          <GenresList checkedGenre={checkedGenre} setCheckedGenre={setCheckedGenre} />
+          {isLoading ? <LoadingScreen /> : <FilmsList genre={checkedGenre} filmsCount={filmsCount} />}
           <div className="catalog__more">
-            {shownFilmsCount < setFilmsCountByGenre && <ShowMoreButton />}
+            {filmsCount < filmsCountByGenre && <ShowMoreButton filmsCount={filmsCount} setFilmsCount={setFilmsCount} />}
           </div>
         </section>
         <Footer />

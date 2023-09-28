@@ -10,9 +10,7 @@ export type UserProcess = {
 
 export type FilmsProcess = {
     films: FilmShortCard[];
-    filmsCount: number;
     filmsByGenreCount: number;
-    checkedGenre: string;
     isFilmsLoading: boolean;
 }
 
@@ -21,7 +19,6 @@ export type FilmCardProcess = {
     similarFilms: FilmShortCard[];
     comments: Comment[];
     comment: Review | null;
-    checkedTab: string;
     isFilmCardLoading: boolean;
     isCommentSending: boolean;
     hasCommentSendingError: boolean;

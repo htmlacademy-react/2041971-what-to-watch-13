@@ -1,16 +1,16 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmById, getFilmCardLoadingStatus, getSimilarFilms } from '../../store/film-card-process/film-card-process.selector';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { fetchFilmByIdAction, fetchSimilarFilmsAction } from '../../store/api-actions';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import Tabs from '../../components/tabs/tabs';
-import { Link, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { fetchFilmByIdAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
 
 function FilmScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -67,7 +67,7 @@ function FilmScreen(): JSX.Element {
                 </button>
                 {authorizationStatus === AuthorizationStatus.Auth &&
                 <Link
-                  to={AppRoute.AddReview}
+                  to={AppRoute.AddReview.replace(':id', id)}
                   className="btn film-card__button"
                 >Add review
                 </Link>}

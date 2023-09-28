@@ -1,4 +1,4 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
@@ -23,19 +23,17 @@ function App(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen />} />
-        <Route path={AppRoute.SignIn} element={<AuthScreen />} />
-        <Route element={<PrivateRoute authorizationStatus={authorizationStatus} />}>
-          <Route element={<MyListScreen />} path={AppRoute.MyList} />
-          <Route element={<AddReviewScreen />} path={AppRoute.AddReview} />
-        </Route>
-        <Route path={`${AppRoute.Film}:id`} element={<FilmScreen />} />
-        <Route path={AppRoute.Player} element={<PlayerScreen />} />
-        <Route path="*" element={<NotFoundScreen />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path={AppRoute.Main} element={<MainScreen />} />
+      <Route path={AppRoute.SignIn} element={<AuthScreen />} />
+      <Route element={<PrivateRoute authorizationStatus={authorizationStatus} />}>
+        <Route element={<MyListScreen />} path={AppRoute.MyList} />
+        <Route element={<AddReviewScreen />} path={AppRoute.AddReview} />
+      </Route>
+      <Route path={`${AppRoute.Film}:id`} element={<FilmScreen />} />
+      <Route path={AppRoute.Player} element={<PlayerScreen />} />
+      <Route path="*" element={<NotFoundScreen />} />
+    </Routes>
   );
 }
 

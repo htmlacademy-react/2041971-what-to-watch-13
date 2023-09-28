@@ -1,6 +1,6 @@
 import { Comment } from '../../types/comment';
 import { getDataFormat } from '../../utils';
-import { DateFormat } from '../../const';
+import { DateFormat, RATING_DIGIT } from '../../const';
 
 type ReviewProps = {
   comment: Comment;
@@ -20,7 +20,7 @@ function Review({comment}: ReviewProps): JSX.Element {
         </footer>
       </blockquote>
 
-      <div className="review__rating">{rating}</div>
+      <div className="review__rating">{rating.toFixed(RATING_DIGIT)}</div>
     </div>
   );
 }

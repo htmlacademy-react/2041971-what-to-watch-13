@@ -1,4 +1,8 @@
-export const TABS = ['Overview', 'Details', 'Reviews'];
+export enum Tab {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews',
+}
 
 export enum AppRoute {
     Main = '/',
@@ -31,6 +35,7 @@ export const DEFAULT_TAB = 'Overview';
 export const DEFAULT_GENRE = 'All genres';
 export const DEFAULT_FILMS_COUNT = 8;
 export const DURATION_DIGIT = 60;
+export const RATING_DIGIT = 1;
 
 export enum APIRoute {
     Films = '/films',

@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { FilmCardProcess } from '../../types/state';
-import { NameSpace, DEFAULT_TAB } from '../../const';
+import { NameSpace } from '../../const';
 import { fetchCommentsAction, fetchFilmByIdAction, fetchSendReviewAction, fetchSimilarFilmsAction } from '../api-actions';
 
 const initialState: FilmCardProcess = {
@@ -8,7 +8,6 @@ const initialState: FilmCardProcess = {
   similarFilms: [],
   comments: [],
   comment: null,
-  checkedTab: DEFAULT_TAB,
   isFilmCardLoading: false,
   isCommentSending: false,
   hasCommentSendingError: false,
@@ -17,11 +16,7 @@ const initialState: FilmCardProcess = {
 export const filmCardProcess = createSlice({
   name: NameSpace.FilmCard,
   initialState,
-  reducers: {
-    changeTab: (state, action: PayloadAction<string>) => {
-      state.checkedTab = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchFilmByIdAction.pending, (state) => {
@@ -51,5 +46,3 @@ export const filmCardProcess = createSlice({
       });
   }
 });
-
-export const {changeTab} = filmCardProcess.actions;

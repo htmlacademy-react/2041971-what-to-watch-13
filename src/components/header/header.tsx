@@ -18,11 +18,22 @@ function Header({children, isFilmCard}: HeaderProps): JSX.Element {
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
   const film = useAppSelector(getFilmById);
 
+  function getBackground(isFullCard: boolean | undefined, hasAuth: boolean) {
+    if (isFullCard) {
+      return <img src={film?.backgroundImage} alt={film?.name} />;
+    }
+
+    if (hasAuth) {
+      return <img src={promoFilm?.backgroundImage} alt={promoFilm?.name} />;
+    } else {
+      return <img src="img/bg-header.jpg" />;
+    }
+  }
+
   return (
     <>
       <div className="film-card__bg">
-        {isFilmCard && <img src={film.backgroundImage} alt={film.name} />}
-        {isAuth && !isFilmCard ? <img src={promoFilm?.backgroundImage} alt={promoFilm?.name} /> : <img src="img/bg-header.jpg" /> }
+        {getBackground(isFilmCard, isAuth)}
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <header className="page-header film-card__head">
