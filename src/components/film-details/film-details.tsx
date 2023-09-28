@@ -1,5 +1,6 @@
 import { FilmCard } from '../../types/film';
 import { getFormatDuration } from '../../utils';
+import { Fragment } from 'react';
 
 type FilmDetailsProps = {
   film: FilmCard;
@@ -17,7 +18,7 @@ function FilmDetails({film}: FilmDetailsProps): JSX.Element {
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
-          <span className="film-card__details-value">{starring?.map((actor, i) => <>{(i === starring.length - 1) ? actor : `${actor},`}{<br key={actor} />}</>)}
+          <span className="film-card__details-value">{starring.map((actor, i) => <Fragment key={actor} >{(i === starring.length - 1) ? actor : `${actor},`}{<br key={actor} />}</Fragment>)}
           </span>
         </p>
       </div>
