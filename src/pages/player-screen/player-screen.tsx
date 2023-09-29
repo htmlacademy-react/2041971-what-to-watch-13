@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import VideoPlayer from '../../components/video-player/video-player';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmById, getFilmCardLoadingStatus } from '../../store/film-card-process/film-card-process.selector';
@@ -14,6 +14,7 @@ function PlayerScreen(): JSX.Element {
   const filmCard = useAppSelector(getFilmById);
   const isLoading = useAppSelector(getFilmCardLoadingStatus);
   const [isPause, setIsPause] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     if (id) {
@@ -29,9 +30,18 @@ function PlayerScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
+  // const togglePlay = () => {
+  //   if (isPause) {
+  //     videoRef.current.play();
+  //   } else {
+  //     videoRef.current.pause();
+  //   }
+  //   setIsPause(!isPause);
+  // };
+
   return (
     <div className="player">
-      <VideoPlayer filmCard={filmCard} />
+      <VideoPlayer filmCard={filmCard} ref={videoRef} />
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -51,6 +61,7 @@ function PlayerScreen(): JSX.Element {
             onClick={(evt) => {
               evt.preventDefault();
               setIsPause((prev) => !prev);
+              //togglePlay();
             }}
           >
             <svg viewBox="0 0 19 19" width="19" height="19">
