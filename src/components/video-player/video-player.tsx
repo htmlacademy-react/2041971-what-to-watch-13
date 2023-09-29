@@ -1,11 +1,13 @@
+import { FilmCard, FilmShortCard } from '../../types/film';
+
 type VideoPlayerProps = {
-    src: string;
-    poster: string;
+    film?: FilmShortCard;
+    filmCard?: FilmCard;
 }
 
-function VideoPlayer({src, poster}: VideoPlayerProps): JSX.Element {
+function VideoPlayer({film, filmCard}: VideoPlayerProps): JSX.Element {
   return (
-    <video src={src} className="player__video" poster={poster} muted autoPlay></video>
+    <video src={film ? film.previewVideoLink : filmCard?.videoLink} className="player__video" poster={film ? film.previewImage : filmCard?.posterImage} muted autoPlay ></video>
   );
 }
 

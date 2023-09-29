@@ -36,6 +36,7 @@ export const DEFAULT_GENRE = 'All genres';
 export const DEFAULT_FILMS_COUNT = 8;
 export const DURATION_DIGIT = 60;
 export const RATING_DIGIT = 1;
+export const RUNTIME_DIGIT = 2;
 
 export enum APIRoute {
     Films = '/films',

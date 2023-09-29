@@ -29,7 +29,6 @@ export function validatePassword(password: string | undefined) {
   return true;
 }
 
-
 export function validateEmail(email: string | undefined) {
   if (
     !email ||
@@ -61,6 +60,13 @@ export function getTextRating(rating: number): Rating {
 
 export function getFormatDuration(duration: number) {
   return `${Math.floor(duration / DURATION_DIGIT)}h ${duration % DURATION_DIGIT}m`;
+}
+
+export function getFormatRunTime(duration: number) {
+  const hours = Math.floor(duration / DURATION_DIGIT);
+  const minutes = duration % DURATION_DIGIT;
+  const seconds = duration - hours * DURATION_DIGIT - minutes;
+  return `${hours > 9 ? hours : `0${hours.toString()}`}:${minutes}:${seconds > 9 ? seconds : `0${seconds.toString()}`}`;
 }
 
 export function getDataFormat(data: string, format: string):string {

@@ -9,7 +9,7 @@ type SmallFilmCardProps = {
 }
 
 function SmallFilmCard({film}: SmallFilmCardProps): JSX.Element {
-  const {previewImage, name, previewVideoLink, id} = film;
+  const {previewImage, name, id} = film;
   const navigate = useNavigate();
   const [isSelectedFilm, setSelectedFilm] = useState(false);
   const [isFilmMouseOver, setFilmMouseOver] = useState(false);
@@ -31,7 +31,7 @@ function SmallFilmCard({film}: SmallFilmCardProps): JSX.Element {
       onMouseOver={() => setFilmMouseOver(true)}
       onMouseLeave={() => setFilmMouseOver(false)}
     >
-      {isSelectedFilm ? <VideoPlayer src={previewVideoLink} poster={previewImage} /> :
+      {isSelectedFilm ? <VideoPlayer film={film} /> :
         <>
           <div
             className="small-film-card__image"

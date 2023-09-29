@@ -11,6 +11,7 @@ import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import Tabs from '../../components/tabs/tabs';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import PlayButton from '../../components/play-button/play-button';
 
 function FilmScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -52,12 +53,7 @@ function FilmScreen(): JSX.Element {
                 <span className="film-card__year">{released}</span>
               </p>
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
+                {id && <PlayButton id={id} />}
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -65,7 +61,7 @@ function FilmScreen(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                {authorizationStatus === AuthorizationStatus.Auth &&
+                {authorizationStatus === AuthorizationStatus.Auth && id &&
                 <Link
                   to={AppRoute.AddReview.replace(':id', id)}
                   className="btn film-card__button"
