@@ -7,7 +7,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import { useAppSelector } from '../../hooks';
 import { getFilmsCountByGenre, getFilmsLoadingStatus } from '../../store/films-process/films-process.selector';
 import { DEFAULT_FILMS_COUNT, DEFAULT_GENRE } from '../../const';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function MainScreen(): JSX.Element {
   const filmsCountByGenre = useAppSelector(getFilmsCountByGenre);
@@ -15,6 +15,10 @@ function MainScreen(): JSX.Element {
 
   const [checkedGenre, setCheckedGenre] = useState(DEFAULT_GENRE);
   const [filmsCount, setFilmsCount] = useState(DEFAULT_FILMS_COUNT);
+
+  useEffect(() => {
+    setFilmsCount(DEFAULT_FILMS_COUNT);
+  }, [checkedGenre]);
 
   return(
     <>

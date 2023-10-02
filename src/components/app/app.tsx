@@ -32,7 +32,6 @@ function App(): JSX.Element {
       </Route>
       <Route path={`${AppRoute.Film}:id`} element={<FilmScreen />} />
       <Route path={AppRoute.Player} element={<PlayerScreen />} />
-      <Route path={AppRoute.Player} element={<PlayerScreen />} />
       <Route path="*" element={<NotFoundScreen />} />
     </Routes>
   );
