@@ -12,6 +12,8 @@ import Tabs from '../../components/tabs/tabs';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PlayButton from '../../components/play-button/play-button';
+import FavoritesButton from '../../components/favorites-button/favorites-button';
+import { getFavorites } from '../../store/favorite-process/favorite-process.selector';
 
 function FilmScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -19,6 +21,7 @@ function FilmScreen(): JSX.Element {
   const similarFilms = useAppSelector(getSimilarFilms).slice(0, 4);
   const isLoading = useAppSelector(getFilmCardLoadingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const favorites = useAppSelector(getFavorites);
   const {id} = useParams();
 
   useEffect(() => {
@@ -26,7 +29,7 @@ function FilmScreen(): JSX.Element {
       dispatch(fetchFilmByIdAction(id));
       dispatch(fetchSimilarFilmsAction(id));
     }
-  }, [id, dispatch]);
+  }, [id, dispatch, favorites]);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -36,7 +39,7 @@ function FilmScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
-  const {name, genre, released, posterImage} = filmById;
+  const {name, genre, released, posterImage, isFavorite} = filmById;
 
   return (
     <>
@@ -54,19 +57,15 @@ function FilmScreen(): JSX.Element {
               </p>
               <div className="film-card__buttons">
                 {id && <PlayButton id={id} />}
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
                 {authorizationStatus === AuthorizationStatus.Auth && id &&
-                <Link
-                  to={AppRoute.AddReview.replace(':id', id)}
-                  className="btn film-card__button"
-                >Add review
-                </Link>}
+                <>
+                  <FavoritesButton isFavorite={isFavorite} id={id} />
+                  <Link
+                    to={AppRoute.AddReview.replace(':id', id)}
+                    className="btn film-card__button"
+                  >Add review
+                  </Link>
+                </>}
               </div>
             </div>
           </div>

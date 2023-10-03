@@ -2,7 +2,7 @@ import {Route, Routes} from 'react-router-dom';
 import {AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { checkAuthAction, fetchFilmsAction } from '../../store/api-actions';
+import { checkAuthAction, fetchFilmsAction, fetchFavoriteAction } from '../../store/api-actions';
 import MainScreen from '../../pages/main-screen/main-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
@@ -20,6 +20,7 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(fetchFilmsAction());
     dispatch(checkAuthAction());
+    dispatch(fetchFavoriteAction());
   }, [dispatch]);
 
   return (

@@ -87,6 +87,20 @@ export const fetchFavoriteAction = createAsyncThunk<FilmShortCard[], undefined, 
   }
 );
 
+export const fetchChangeFavoriteStatusAction = createAsyncThunk<FilmShortCard[], {status: number; id: string}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchChangeFavoriteStatus',
+  async({status, id}, {extra: api}) => {
+    await api.post<FilmCard>(`${APIRoute.Favorite}/${id}/${status}`);
+    const {data} = await api.get<FilmShortCard[]>(APIRoute.Favorite);
+    return data;
+  }
+);
+
+
 export const fetchPromoFilmAction = createAsyncThunk<PromoFilmCard, undefined, {
   dispatch: AppDispatch;
   state: State;

@@ -76,3 +76,9 @@ export function getDataFormat(data: string, format: string):string {
 export function validateComment(comment: string) {
   return comment.length >= 50 && comment.length <= 400;
 }
+
+export function requestFullscreen(video: HTMLVideoElement | null) {
+  if (video) {
+    video.requestFullscreen();
+  }
+}

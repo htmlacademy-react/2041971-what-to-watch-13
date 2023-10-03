@@ -2,19 +2,12 @@ import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import UserBlock from '../../components/user-block/user-block';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchFavoriteAction } from '../../store/api-actions';
+import { useAppSelector } from '../../hooks';
 import { getFavorites, getFavoritesLength } from '../../store/favorite-process/favorite-process.selector';
-import { useEffect } from 'react';
 
 function MyListScreen(): JSX.Element {
   const favorites = useAppSelector(getFavorites);
   const favoritesCount = useAppSelector(getFavoritesLength);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchFavoriteAction());
-  }, [dispatch]);
 
   return (
     <div className="user-page">

@@ -1,8 +1,8 @@
 import { FilmShortCard } from '../../types/film';
 import { useEffect, useState } from 'react';
-import VideoPlayer from '../video-player/video-player';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import VideoPlayer from '../video-player/video-player';
 
 type SmallFilmCardProps = {
   film: FilmShortCard;
