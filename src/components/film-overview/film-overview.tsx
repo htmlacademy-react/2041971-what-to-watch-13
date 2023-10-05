@@ -1,5 +1,5 @@
 import { FilmCard } from '../../types/film';
-import { getTextRating } from '../../utils';
+import { getTextRating } from '../../utils/utils';
 
 type FilmOverviewType = {
   film: FilmCard;

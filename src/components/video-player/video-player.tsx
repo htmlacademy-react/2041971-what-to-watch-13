@@ -7,7 +7,7 @@ type VideoPlayerProps = {
     onTimeUpdate?: () => void;
 }
 
-const VideoPlayer = forwardRef(({film, filmCard, onTimeUpdate}: VideoPlayerProps, ref) => (
+const VideoPlayer = forwardRef<null | HTMLVideoElement, VideoPlayerProps>(({film, filmCard, onTimeUpdate}, ref) => (
   <video
     ref={ref}
     src={film ? film.previewVideoLink : filmCard?.videoLink}
@@ -18,11 +18,6 @@ const VideoPlayer = forwardRef(({film, filmCard, onTimeUpdate}: VideoPlayerProps
   >
   </video>));
 
-// function VideoPlayer({film, filmCard, ref}: VideoPlayerProps): JSX.Element {
-
-//   return (
-//     <video ref={ref} src={film ? film.previewVideoLink : filmCard?.videoLink} className="player__video" poster={film ? film.previewImage : filmCard?.posterImage} muted autoPlay ></video>
-//   );
-// }
+VideoPlayer.displayName = 'VideoPlayer';
 
 export default VideoPlayer;

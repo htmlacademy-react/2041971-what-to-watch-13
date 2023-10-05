@@ -1,7 +1,7 @@
 import { Fragment, useState, ChangeEvent, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchSendReviewAction } from '../../store/api-actions';
-import { validateComment } from '../../utils';
+import { validateComment } from '../../utils/utils';
 import { getCommentSendingErrorStatus, getCommentSendingStatus } from '../../store/film-card-process/film-card-process.selector';
 
 const REVIEW_TEXT = 'review-text';

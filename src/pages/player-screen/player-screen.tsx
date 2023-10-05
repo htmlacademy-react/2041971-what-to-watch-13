@@ -3,11 +3,12 @@ import { useEffect, useState, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmById, getFilmCardLoadingStatus } from '../../store/film-card-process/film-card-process.selector';
 import { fetchFilmByIdAction } from '../../store/api-actions';
-import { getFormatRunTime, requestFullscreen } from '../../utils';
+import { getFormatRunTime } from '../../utils/utils';
 import { AppRoute } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import VideoPlayer from '../../components/video-player/video-player';
+import { Helmet } from 'react-helmet-async';
 
 function PlayerScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -57,6 +58,9 @@ function PlayerScreen(): JSX.Element {
 
   return (
     <div className="player">
+      <Helmet>
+        <title>{`WTW. Player ${filmCard.name}`}</title>
+      </Helmet>
       <VideoPlayer
         filmCard={filmCard}
         ref={videoRef}
@@ -65,8 +69,7 @@ function PlayerScreen(): JSX.Element {
       <button
         type="button"
         className="player__exit"
-        onClick={(evt) => {
-          evt.preventDefault();
+        onClick={() => {
           navigate(`${AppRoute.Film}${id}`);
         }}
       >Exit
@@ -84,8 +87,7 @@ function PlayerScreen(): JSX.Element {
           <button
             type="button"
             className="player__play"
-            onClick={(evt) => {
-              evt.preventDefault();
+            onClick={() => {
               togglePlay();
             }}
           >
@@ -99,9 +101,10 @@ function PlayerScreen(): JSX.Element {
           <button
             type="button"
             className="player__full-screen"
-            onClick={(evt) => {
-              evt.preventDefault();
-              requestFullscreen(videoRef.current);
+            onClick={() => {
+              if (videoRef.current) {
+                videoRef.current.requestFullscreen();
+              }
             }}
           >
             <svg viewBox="0 0 27 27" width="27" height="27">

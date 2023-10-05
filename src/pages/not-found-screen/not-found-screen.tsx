@@ -1,10 +1,14 @@
 import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
+import { Helmet } from 'react-helmet-async';
 
 function NotFoundScreen(): JSX.Element {
   return (
     <div className="user-page">
+      <Helmet>
+        <title>WTW. Page not found</title>
+      </Helmet>
       <header className="page-header user-page__head">
         <Logo />
       </header>

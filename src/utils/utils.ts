@@ -1,7 +1,9 @@
 import dayjs from 'dayjs';
-import { FilmShortCard } from './types/film';
-import { DEFAULT_GENRE, Rating, DURATION_DIGIT } from './const';
+import { FilmShortCard } from '../types/film';
+import { DEFAULT_GENRE, Rating, DURATION_DIGIT } from '../const';
+import duration from 'dayjs/plugin/duration';
 
+dayjs.extend(duration);
 export function getCurrentGenresList(films: FilmShortCard[]):string[] {
   const genres = Array.from(new Set(films.map((film) => film.genre))).slice(0, 9);
   genres.unshift(DEFAULT_GENRE);
@@ -58,15 +60,15 @@ export function getTextRating(rating: number): Rating {
   }
 }
 
-export function getFormatDuration(duration: number) {
-  return `${Math.floor(duration / DURATION_DIGIT)}h ${duration % DURATION_DIGIT}m`;
+export function getFormatDuration(time: number) {
+  return `${Math.floor(time / DURATION_DIGIT)}h ${time % DURATION_DIGIT}m`;
 }
 
-export function getFormatRunTime(duration: number) {
-  const hours = Math.floor(duration / DURATION_DIGIT);
-  const minutes = duration % DURATION_DIGIT;
-  const seconds = duration - hours * DURATION_DIGIT - minutes;
-  return `${hours > 9 ? hours : `0${hours.toString()}`}:${minutes}:${seconds > 9 ? seconds : `0${seconds.toString()}`}`;
+export function getFormatRunTime(time: number) {
+  const date = dayjs.duration(time);
+
+  return `${date.minutes()}:${date.seconds()}:${date.milliseconds()}`;
+
 }
 
 export function getDataFormat(data: string, format: string):string {
@@ -75,10 +77,4 @@ export function getDataFormat(data: string, format: string):string {
 
 export function validateComment(comment: string) {
   return comment.length >= 50 && comment.length <= 400;
-}
-
-export function requestFullscreen(video: HTMLVideoElement | null) {
-  if (video) {
-    video.requestFullscreen();
-  }
 }

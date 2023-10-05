@@ -1,5 +1,5 @@
 import { Comment } from '../../types/comment';
-import { getDataFormat } from '../../utils';
+import { getDataFormat } from '../../utils/utils';
 import { DateFormat, RATING_DIGIT } from '../../const';
 
 type ReviewProps = {

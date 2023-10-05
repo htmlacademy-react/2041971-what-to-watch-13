@@ -1,10 +1,11 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getFilmById, getFilmCardLoadingStatus, getSimilarFilms } from '../../store/film-card-process/film-card-process.selector';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchFilmByIdAction, fetchSimilarFilmsAction } from '../../store/api-actions';
+import { getFilmById, getFilmCardLoadingStatus, getSimilarFilms } from '../../store/film-card-process/film-card-process.selector';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
+import { getFavorites } from '../../store/favorite-process/favorite-process.selector';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
@@ -13,7 +14,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PlayButton from '../../components/play-button/play-button';
 import FavoritesButton from '../../components/favorites-button/favorites-button';
-import { getFavorites } from '../../store/favorite-process/favorite-process.selector';
+import { Helmet } from 'react-helmet-async';
 
 function FilmScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -27,9 +28,14 @@ function FilmScreen(): JSX.Element {
   useEffect(() => {
     if (id) {
       dispatch(fetchFilmByIdAction(id));
-      dispatch(fetchSimilarFilmsAction(id));
     }
   }, [id, dispatch, favorites]);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchSimilarFilmsAction(id));
+    }
+  }, [id, dispatch]);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -44,6 +50,9 @@ function FilmScreen(): JSX.Element {
   return (
     <>
       <section className="film-card film-card--full">
+        <Helmet>
+          <title>{`WTW. ${name}`}</title>
+        </Helmet>
         <div className="film-card__hero">
           <Header isFilmCard >
             <h1 className="visually-hidden">WTW</h1>

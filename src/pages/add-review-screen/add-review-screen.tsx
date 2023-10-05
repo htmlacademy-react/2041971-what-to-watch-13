@@ -1,10 +1,11 @@
-import ReviewForm from '../../components/review-form/review-form';
-import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 import { getFilmById } from '../../store/film-card-process/film-card-process.selector';
 import { Link } from 'react-router-dom';
 import { APIRoute } from '../../const';
+import ReviewForm from '../../components/review-form/review-form';
+import Header from '../../components/header/header';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { Helmet } from 'react-helmet-async';
 
 function AddReviewScreen(): JSX.Element {
   const film = useAppSelector(getFilmById);
@@ -15,6 +16,9 @@ function AddReviewScreen(): JSX.Element {
 
   return (
     <section className="film-card film-card--full">
+      <Helmet>
+        <title>{`WTW. Add review ${film.name}`}</title>
+      </Helmet>
       <div className="film-card__header">
         <Header isFilmCard>
           <h1 className="visually-hidden">WTW</h1>

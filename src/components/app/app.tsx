@@ -12,6 +12,7 @@ import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-rout/private-rout';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -24,17 +25,19 @@ function App(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path={AppRoute.Main} element={<MainScreen />} />
-      <Route path={AppRoute.SignIn} element={<AuthScreen />} />
-      <Route element={<PrivateRoute authorizationStatus={authorizationStatus} />}>
-        <Route element={<MyListScreen />} path={AppRoute.MyList} />
-        <Route element={<AddReviewScreen />} path={AppRoute.AddReview} />
-      </Route>
-      <Route path={`${AppRoute.Film}:id`} element={<FilmScreen />} />
-      <Route path={AppRoute.Player} element={<PlayerScreen />} />
-      <Route path="*" element={<NotFoundScreen />} />
-    </Routes>
+    <HelmetProvider>
+      <Routes>
+        <Route path={AppRoute.Main} element={<MainScreen />} />
+        <Route path={AppRoute.SignIn} element={<AuthScreen />} />
+        <Route element={<PrivateRoute authorizationStatus={authorizationStatus} />}>
+          <Route element={<MyListScreen />} path={AppRoute.MyList} />
+          <Route element={<AddReviewScreen />} path={AppRoute.AddReview} />
+        </Route>
+        <Route path={`${AppRoute.Film}:id`} element={<FilmScreen />} />
+        <Route path={AppRoute.Player} element={<PlayerScreen />} />
+        <Route path="*" element={<NotFoundScreen />} />
+      </Routes>
+    </HelmetProvider>
   );
 }
 

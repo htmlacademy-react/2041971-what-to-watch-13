@@ -8,6 +8,7 @@ import { useAppSelector } from '../../hooks';
 import { getFilmsCountByGenre, getFilmsLoadingStatus } from '../../store/films-process/films-process.selector';
 import { DEFAULT_FILMS_COUNT, DEFAULT_GENRE } from '../../const';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 function MainScreen(): JSX.Element {
   const filmsCountByGenre = useAppSelector(getFilmsCountByGenre);
@@ -22,6 +23,9 @@ function MainScreen(): JSX.Element {
 
   return(
     <>
+      <Helmet>
+        <title>{`WTW. Catalog - ${checkedGenre}`}</title>
+      </Helmet>
       <FilmCard />
       <div className="page-content">
         <section className="catalog">

@@ -1,5 +1,5 @@
 import { FilmCard } from '../../types/film';
-import { getFormatDuration } from '../../utils';
+import { getFormatDuration } from '../../utils/utils';
 import { Fragment } from 'react';
 
 type FilmDetailsProps = {

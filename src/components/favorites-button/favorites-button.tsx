@@ -16,8 +16,7 @@ function FavoritesButton({isFavorite, id}: FavoritesButtonProps):JSX.Element {
     <button
       className="btn btn--list film-card__button"
       type="button"
-      onClick={(evt) => {
-        evt.preventDefault();
+      onClick={() => {
         dispatch(fetchChangeFavoriteStatusAction({status, id}));
       }}
     >

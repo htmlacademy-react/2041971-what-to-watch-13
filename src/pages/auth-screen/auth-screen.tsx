@@ -1,13 +1,14 @@
-import Logo from '../../components/logo/logo';
-import Footer from '../../components/footer/footer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Navigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import { AuthData } from '../../types/auth-data';
-import { validateEmail, validatePassword } from '../../utils';
+import { validateEmail, validatePassword } from '../../utils/utils';
 import { loginAction } from '../../store/api-actions';
+import Logo from '../../components/logo/logo';
+import Footer from '../../components/footer/footer';
+import { Helmet } from 'react-helmet-async';
 
 function AuthScreen(): JSX.Element {
   const authorizationStaus = useAppSelector(getAuthorizationStatus);
@@ -35,6 +36,9 @@ function AuthScreen(): JSX.Element {
 
   return (
     <div className="user-page">
+      <Helmet>
+        <title>WTW. Sign in</title>
+      </Helmet>
       <header className="page-header user-page__head">
         <Logo />
         <h1 className="page-title user-page__title">Sign in</h1>

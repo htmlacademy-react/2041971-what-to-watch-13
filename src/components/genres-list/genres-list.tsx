@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useAppSelector } from '../../hooks';
 import { getFilms } from '../../store/films-process/films-process.selector';
-import { getCurrentGenresList } from '../../utils';
+import { getCurrentGenresList } from '../../utils/utils';
 
 type GenresListProps = {
   checkedGenre: string;
