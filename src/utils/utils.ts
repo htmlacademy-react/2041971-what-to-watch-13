@@ -65,10 +65,12 @@ export function getFormatDuration(time: number) {
 }
 
 export function getFormatRunTime(time: number) {
-  const date = dayjs.duration(time);
+  const date = dayjs.duration(time, 'seconds');
+  const hours = date.hours();
+  const minutes = date.minutes();
+  const seconds = date.seconds();
 
-  return `${date.minutes()}:${date.seconds()}:${date.milliseconds()}`;
-
+  return `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
 }
 
 export function getDataFormat(data: string, format: string):string {

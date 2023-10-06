@@ -17,8 +17,10 @@ function PlayerScreen(): JSX.Element {
   const filmCard = useAppSelector(getFilmById);
   const isLoading = useAppSelector(getFilmCardLoadingStatus);
   const [isPause, setIsPause] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(0);
-  const [timeUpdate, setTimeUpdate] = useState(0);
+  const [timeData, setTimeData] = useState({
+    timeLeft: 0,
+    timeUpdate: 0,
+  });
   const videoRef = useRef<null | HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -48,8 +50,11 @@ function PlayerScreen(): JSX.Element {
 
   const handleVideoTimeUpdate = () => {
     if (videoRef.current) {
-      setTimeLeft(Math.floor(videoRef.current.duration - videoRef.current.currentTime));
-      setTimeUpdate(Math.ceil(videoRef.current.currentTime * 100 / videoRef.current.duration));
+      setTimeData({
+        timeLeft: Math.floor(videoRef.current.duration - videoRef.current.currentTime),
+        timeUpdate: Math.ceil(videoRef.current.currentTime * 100 / videoRef.current.duration),
+      });
+
       if(videoRef.current.duration === videoRef.current.currentTime) {
         setIsPause(true);
       }
@@ -77,10 +82,10 @@ function PlayerScreen(): JSX.Element {
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value={timeUpdate} max={100}></progress>
-            <div className="player__toggler" style={{left: `${timeUpdate}%`}}>Toggler</div>
+            <progress className="player__progress" value={timeData.timeUpdate} max={100}></progress>
+            <div className="player__toggler" style={{left: `${timeData.timeUpdate}%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">{getFormatRunTime(timeLeft)}</div>
+          <div className="player__time-value">{getFormatRunTime(timeData.timeLeft)}</div>
         </div>
 
         <div className="player__controls-row">
