@@ -17,7 +17,13 @@ export const favoriteProcess = createSlice({
         state.favorite = action.payload;
       })
       .addCase(fetchChangeFavoriteStatusAction.fulfilled, (state, action) => {
-        state.favorite = action.payload;
+        const {genre, id, name, previewImage, previewVideoLink} = action.payload;
+
+        if (action.payload.isFavorite) {
+          state.favorite.push({genre, id, name, previewImage, previewVideoLink});
+        } else {
+          state.favorite = state.favorite.filter((offer) => offer.id !== action.payload.id);
+        }
       });
   }
 });

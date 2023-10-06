@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { fetchFilmByIdAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import { getFilmById, getFilmCardLoadingStatus, getSimilarFilms } from '../../store/film-card-process/film-card-process.selector';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
-import { getFavorites } from '../../store/favorite-process/favorite-process.selector';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
@@ -22,17 +21,11 @@ function FilmScreen(): JSX.Element {
   const similarFilms = useAppSelector(getSimilarFilms).slice(0, 4);
   const isLoading = useAppSelector(getFilmCardLoadingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const favorites = useAppSelector(getFavorites);
   const {id} = useParams();
 
   useEffect(() => {
     if (id) {
       dispatch(fetchFilmByIdAction(id));
-    }
-  }, [id, dispatch, favorites]);
-
-  useEffect(() => {
-    if (id) {
       dispatch(fetchSimilarFilmsAction(id));
     }
   }, [id, dispatch]);
@@ -45,7 +38,7 @@ function FilmScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
-  const {name, genre, released, posterImage, isFavorite} = filmById;
+  const {name, genre, released, posterImage} = filmById;
 
   return (
     <>
@@ -68,7 +61,7 @@ function FilmScreen(): JSX.Element {
                 {id && <PlayButton id={id} />}
                 {authorizationStatus === AuthorizationStatus.Auth && id &&
                 <>
-                  <FavoritesButton isFavorite={isFavorite} id={id} />
+                  <FavoritesButton id={id} />
                   <Link
                     to={AppRoute.AddReview.replace(':id', id)}
                     className="btn film-card__button"

@@ -10,9 +10,10 @@ import { getFilmById } from '../../store/film-card-process/film-card-process.sel
 type HeaderProps = {
     children?: React.ReactNode;
     isFilmCard?: boolean;
+    isMain?: boolean;
 }
 
-function Header({children, isFilmCard}: HeaderProps): JSX.Element {
+function Header({children, isFilmCard, isMain}: HeaderProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const promoFilm = useAppSelector(getPromoFilm);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
@@ -37,7 +38,7 @@ function Header({children, isFilmCard}: HeaderProps): JSX.Element {
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <header className="page-header film-card__head">
-        <Logo />
+        <Logo isMain={isMain} />
         {children}
         {isAuth ? <UserBlock /> : <HeadGuest />}
       </header>

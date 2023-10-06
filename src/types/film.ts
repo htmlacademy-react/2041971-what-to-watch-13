@@ -16,6 +16,26 @@ export type FilmCard = {
     isFavorite: boolean;
 };
 
+export type FilmFavoriteCard = {
+    id: string;
+    name: string;
+    previewImage: string;
+    previewVideoLink: string;
+    genre: string;
+    posterImage: string;
+    backgroundImage: string;
+    backgroundColor: string;
+    videoLink: string;
+    description: string;
+    rating: number;
+    scoresCount: number;
+    director: string;
+    starring: string[];
+    runTime: number;
+    released: number;
+    isFavorite: boolean;
+}
+
 export type FilmShortCard = {
     id: string;
     name: string;

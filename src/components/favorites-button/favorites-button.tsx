@@ -1,16 +1,17 @@
-import { getFavoritesLength } from '../../store/favorite-process/favorite-process.selector';
+import { getFavorites, getFavoritesLength } from '../../store/favorite-process/favorite-process.selector';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchChangeFavoriteStatusAction } from '../../store/api-actions';
 
 type FavoritesButtonProps = {
-    isFavorite: boolean;
     id: string;
 }
 
-function FavoritesButton({isFavorite, id}: FavoritesButtonProps):JSX.Element {
-  const favoritesCount = useAppSelector(getFavoritesLength);
-  const status = Number(!isFavorite);
+function FavoritesButton({id}: FavoritesButtonProps):JSX.Element {
   const dispatch = useAppDispatch();
+  const favoritesCount = useAppSelector(getFavoritesLength);
+  const favorites = useAppSelector(getFavorites);
+  const isFavorite = favorites.some((favorite) => favorite.id === id);
+  const status = Number(!isFavorite);
 
   return (
     <button

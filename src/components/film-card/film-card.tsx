@@ -1,24 +1,22 @@
-import Header from '../header/header';
-import PlayButton from '../play-button/play-button';
-import FavoritesButton from '../favorites-button/favorites-button';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getPromoFilm } from '../../store/promo-film-process/promo-film-process.selector';
 import { fetchPromoFilmAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
 import { AuthorizationStatus } from '../../const';
+import Header from '../header/header';
+import PlayButton from '../play-button/play-button';
+import FavoritesButton from '../favorites-button/favorites-button';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import { getFavorites } from '../../store/favorite-process/favorite-process.selector';
 
 function FilmCard():JSX.Element {
   const promo = useAppSelector(getPromoFilm);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector(getFavorites);
 
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
-  }, [dispatch, favorites]);
+  }, [dispatch]);
 
   if (!promo) {
     return <LoadingScreen />;
@@ -28,7 +26,7 @@ function FilmCard():JSX.Element {
 
   return (
     <section className="film-card">
-      <Header />
+      <Header isMain/>
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
@@ -44,7 +42,7 @@ function FilmCard():JSX.Element {
 
             <div className="film-card__buttons">
               <PlayButton id={id} />
-              {authorizationStatus === AuthorizationStatus.Auth && <FavoritesButton isFavorite={promo.isFavorite} id={id} />}
+              {authorizationStatus === AuthorizationStatus.Auth && <FavoritesButton id={id} />}
             </div>
           </div>
         </div>

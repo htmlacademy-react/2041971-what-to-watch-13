@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { FilmShortCard, PromoFilmCard, FilmCard } from '../types/film';
+import { FilmShortCard, PromoFilmCard, FilmCard, FilmFavoriteCard } from '../types/film';
 import { State } from '../types/state';
 import { AppDispatch } from '../types/state';
 import { UserData } from '../types/user-data.';
@@ -87,15 +87,14 @@ export const fetchFavoriteAction = createAsyncThunk<FilmShortCard[], undefined, 
   }
 );
 
-export const fetchChangeFavoriteStatusAction = createAsyncThunk<FilmShortCard[], {status: number; id: string}, {
+export const fetchChangeFavoriteStatusAction = createAsyncThunk<FilmFavoriteCard, {status: number; id: string}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchChangeFavoriteStatus',
   async({status, id}, {extra: api}) => {
-    await api.post<FilmCard>(`${APIRoute.Favorite}/${id}/${status}`);
-    const {data} = await api.get<FilmShortCard[]>(APIRoute.Favorite);
+    const {data} = await api.post<FilmFavoriteCard>(`${APIRoute.Favorite}/${id}/${status}`);
     return data;
   }
 );
