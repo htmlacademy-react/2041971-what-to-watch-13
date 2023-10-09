@@ -7,6 +7,7 @@ const initialState: FilmsProcess = {
   films: [],
   filmsByGenreCount: 0,
   isFilmsLoading: false,
+  hasFilmsError: false,
 };
 
 export const filmsProcess = createSlice({
@@ -20,10 +21,16 @@ export const filmsProcess = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchFilmsAction.pending, (state) => {
+        state.hasFilmsError = false;
         state.isFilmsLoading = true;
       })
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
         state.films = action.payload;
+        state.isFilmsLoading = false;
+        state.hasFilmsError = false;
+      })
+      .addCase(fetchFilmsAction.rejected, (state) => {
+        state.hasFilmsError = true;
         state.isFilmsLoading = false;
       });
   }

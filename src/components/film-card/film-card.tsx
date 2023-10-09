@@ -8,11 +8,14 @@ import PlayButton from '../play-button/play-button';
 import FavoritesButton from '../favorites-button/favorites-button';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { getChangeStatusError } from '../../store/favorite-process/favorite-process.selector';
+import ErrorMessage from '../error-message/error-message';
 
 function FilmCard():JSX.Element {
   const promo = useAppSelector(getPromoFilm);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
+  const hasChangeStatusError = useAppSelector(getChangeStatusError);
 
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
@@ -44,6 +47,7 @@ function FilmCard():JSX.Element {
               <PlayButton id={id} />
               {authorizationStatus === AuthorizationStatus.Auth && <FavoritesButton id={id} />}
             </div>
+            {hasChangeStatusError && <ErrorMessage />}
           </div>
         </div>
       </div>

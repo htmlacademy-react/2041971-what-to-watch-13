@@ -3,12 +3,16 @@ import Logo from '../../components/logo/logo';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import UserBlock from '../../components/user-block/user-block';
 import { useAppSelector } from '../../hooks';
-import { getFavorites, getFavoritesLength } from '../../store/favorite-process/favorite-process.selector';
+import { getFavorites, getFavoritesErrorStatus, getFavoritesLength, getFavoritesLoadingStatus } from '../../store/favorite-process/favorite-process.selector';
 import { Helmet } from 'react-helmet-async';
+import LoadingScreen from '../loading-screen/loading-screen';
+import ErrorMessage from '../../components/error-message/error-message';
 
 function MyListScreen(): JSX.Element {
   const favorites = useAppSelector(getFavorites);
   const favoritesCount = useAppSelector(getFavoritesLength);
+  const isLoading = useAppSelector(getFavoritesLoadingStatus);
+  const hasError = useAppSelector(getFavoritesErrorStatus);
 
   return (
     <div className="user-page">
@@ -20,7 +24,8 @@ function MyListScreen(): JSX.Element {
         <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{favoritesCount}</span></h1>
         <UserBlock />
       </header>
-      <FavoritesList favorites={favorites} />
+      {hasError && <ErrorMessage />}
+      {isLoading ? <LoadingScreen /> : <FavoritesList favorites={favorites} />}
       <Footer />
     </div>
   );

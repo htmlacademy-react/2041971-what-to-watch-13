@@ -9,6 +9,9 @@ const initialState: FilmCardProcess = {
   comments: [],
   comment: null,
   isFilmCardLoading: false,
+  isCommentsLoading: false,
+  hasCommentsError: false,
+  isSimilarError: false,
   isCommentSending: false,
   hasCommentSendingError: false,
 };
@@ -27,10 +30,24 @@ export const filmCardProcess = createSlice({
         state.isFilmCardLoading = false;
       })
       .addCase(fetchSimilarFilmsAction.fulfilled, (state, action) => {
+        state.isSimilarError = false;
         state.similarFilms = action.payload;
       })
+      .addCase(fetchSimilarFilmsAction.rejected, (state) => {
+        state.isSimilarError = true;
+      })
+      .addCase(fetchCommentsAction.pending, (state) => {
+        state.hasCommentsError = false;
+        state.isCommentsLoading = true;
+      })
       .addCase(fetchCommentsAction.fulfilled, (state, action) => {
+        state.hasCommentsError = false;
+        state.isCommentsLoading = false;
         state.comments = action.payload;
+      })
+      .addCase(fetchCommentsAction.rejected, (state) => {
+        state.hasCommentsError = true;
+        state.isCommentsLoading = false;
       })
       .addCase(fetchSendReviewAction.pending, (state)=> {
         state.hasCommentSendingError = false;

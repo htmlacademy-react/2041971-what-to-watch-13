@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchCommentsAction } from '../../store/api-actions';
-import { getComments } from '../../store/film-card-process/film-card-process.selector';
+import { getComments, getCommentsErrorStatus, getCommentsLoadingStatus } from '../../store/film-card-process/film-card-process.selector';
 import Review from '../review/review';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import ErrorMessage from '../error-message/error-message';
 
 type FilmReviewsProps = {
   id: string;
@@ -11,6 +13,8 @@ type FilmReviewsProps = {
 function FilmReviews({id}: FilmReviewsProps): JSX.Element {
   const dispatch = useAppDispatch();
   const comments = useAppSelector(getComments);
+  const isLoading = useAppSelector(getCommentsLoadingStatus);
+  const hasError = useAppSelector(getCommentsErrorStatus);
   const index = Math.ceil(comments.length / 2);
   const fitstColComments = comments.slice(0, index);
   const secondColComments = comments.slice(index);
@@ -18,6 +22,14 @@ function FilmReviews({id}: FilmReviewsProps): JSX.Element {
   useEffect(() => {
     dispatch(fetchCommentsAction(id));
   }, [id, dispatch]);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (hasError) {
+    return <ErrorMessage />;
+  }
 
   return (
     <div className="film-card__reviews film-card__row">

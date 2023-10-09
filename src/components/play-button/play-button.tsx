@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 
 type PlayButtonProps = {
     id: string;
@@ -7,6 +8,10 @@ type PlayButtonProps = {
 
 function PlayButton({id}: PlayButtonProps): JSX.Element {
   const navigate = useNavigate();
+
+  if(!id) {
+    return <NotFoundScreen />;
+  }
 
   return (
     <button

@@ -64,13 +64,17 @@ export function getFormatDuration(time: number) {
   return `${Math.floor(time / DURATION_DIGIT)}h ${time % DURATION_DIGIT}m`;
 }
 
+function getDurationFormat(time: number) {
+  return time < 10 ? `0${time}` : time;
+}
+
 export function getFormatRunTime(time: number) {
   const date = dayjs.duration(time, 'seconds');
   const hours = date.hours();
   const minutes = date.minutes();
   const seconds = date.seconds();
 
-  return `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+  return `${getDurationFormat(hours)}:${getDurationFormat(minutes)}:${getDurationFormat(seconds)}`;
 }
 
 export function getDataFormat(data: string, format: string):string {

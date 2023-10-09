@@ -73,7 +73,7 @@ function ReviewForm({id}: ReviewFormProps): JSX.Element {
           )).reverse()}
         </div>
       </div>
-      {!formData.rating && <p>Pleas add rating</p>}
+      {!formData.rating && <p>Please add rating</p>}
       <div className="add-review__text">
         <textarea
           className="add-review__textarea"

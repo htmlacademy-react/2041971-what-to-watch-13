@@ -4,7 +4,10 @@ import { NameSpace } from '../../const';
 import { fetchChangeFavoriteStatusAction, fetchFavoriteAction } from '../api-actions';
 
 const initialState: FavoriteProcess = {
-  favorite: [],
+  favorites: [],
+  isFavoritesLoading: false,
+  hasFavoritesError: false,
+  hasChangeStatusError: false,
 };
 
 export const favoriteProcess = createSlice({
@@ -13,17 +16,31 @@ export const favoriteProcess = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
+      .addCase(fetchFavoriteAction.pending, (state) => {
+        state.hasFavoritesError = false;
+        state.isFavoritesLoading = true;
+      })
       .addCase(fetchFavoriteAction.fulfilled, (state, action) => {
-        state.favorite = action.payload;
+        state.hasFavoritesError = false;
+        state.isFavoritesLoading = false;
+        state.favorites = action.payload;
+      })
+      .addCase(fetchFavoriteAction.rejected, (state) => {
+        state.isFavoritesLoading = false;
+        state.hasFavoritesError = true;
       })
       .addCase(fetchChangeFavoriteStatusAction.fulfilled, (state, action) => {
+        state.hasChangeStatusError = false;
         const {genre, id, name, previewImage, previewVideoLink} = action.payload;
 
         if (action.payload.isFavorite) {
-          state.favorite.push({genre, id, name, previewImage, previewVideoLink});
+          state.favorites.push({genre, id, name, previewImage, previewVideoLink});
         } else {
-          state.favorite = state.favorite.filter((offer) => offer.id !== action.payload.id);
+          state.favorites = state.favorites.filter((offer) => offer.id !== action.payload.id);
         }
+      })
+      .addCase(fetchChangeFavoriteStatusAction.rejected, (state) => {
+        state.hasChangeStatusError = true;
       });
   }
 });

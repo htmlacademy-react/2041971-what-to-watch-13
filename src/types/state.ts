@@ -12,6 +12,7 @@ export type FilmsProcess = {
     films: FilmShortCard[];
     filmsByGenreCount: number;
     isFilmsLoading: boolean;
+    hasFilmsError: boolean;
 }
 
 export type FilmCardProcess = {
@@ -20,12 +21,18 @@ export type FilmCardProcess = {
     comments: Comment[];
     comment: Review | null;
     isFilmCardLoading: boolean;
+    isCommentsLoading: boolean;
+    hasCommentsError: boolean;
+    isSimilarError: boolean;
     isCommentSending: boolean;
     hasCommentSendingError: boolean;
 }
 
 export type FavoriteProcess = {
-    favorite: FilmShortCard[];
+    favorites: FilmShortCard[];
+    isFavoritesLoading: boolean;
+    hasFavoritesError: boolean;
+    hasChangeStatusError: boolean;
 }
 
 export type PromoFilmProcess = {

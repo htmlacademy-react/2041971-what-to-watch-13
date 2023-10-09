@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmById, getFilmCardLoadingStatus } from '../../store/film-card-process/film-card-process.selector';
 import { fetchFilmByIdAction } from '../../store/api-actions';
 import { getFormatRunTime } from '../../utils/utils';
-import { AppRoute } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import VideoPlayer from '../../components/video-player/video-player';
@@ -75,7 +74,7 @@ function PlayerScreen(): JSX.Element {
         type="button"
         className="player__exit"
         onClick={() => {
-          navigate(`${AppRoute.Film}${id}`);
+          navigate(-1);
         }}
       >Exit
       </button>
@@ -101,7 +100,7 @@ function PlayerScreen(): JSX.Element {
             </svg>
             <span>{isPause ? 'Play' : 'Pause'}</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{filmCard.name}</div>
 
           <button
             type="button"
