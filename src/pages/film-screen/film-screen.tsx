@@ -3,11 +3,10 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchFilmByIdAction, fetchSimilarFilmsAction } from '../../store/api-actions';
-import { getFilmById, getFilmCardLoadingStatus, getSimilarErrorStatus, getSimilarFilms } from '../../store/film-card-process/film-card-process.selector';
+import { getFilmById, getFilmCardLoadingStatus } from '../../store/film-card-process/film-card-process.selector';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import Tabs from '../../components/tabs/tabs';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
@@ -16,13 +15,12 @@ import FavoritesButton from '../../components/favorites-button/favorites-button'
 import ErrorMessage from '../../components/error-message/error-message';
 import { Helmet } from 'react-helmet-async';
 import { getChangeStatusError } from '../../store/favorite-process/favorite-process.selector';
+import SimilarList from '../../components/similar-list/similar-list';
 
 function FilmScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const filmById = useAppSelector(getFilmById);
-  const similarFilms = useAppSelector(getSimilarFilms).slice(0, 4);
   const isLoading = useAppSelector(getFilmCardLoadingStatus);
-  const hasSimilarError = useAppSelector(getSimilarErrorStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const hasChangeStatusError = useAppSelector(getChangeStatusError);
   const {id} = useParams();
@@ -87,13 +85,7 @@ function FilmScreen(): JSX.Element {
         </div>
       </section>
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-          {hasSimilarError ? <ErrorMessage /> :
-            <div className="catalog__films-list">
-              {similarFilms.map((similarFilm) => <SmallFilmCard key={similarFilm.id} film={similarFilm} />)}
-            </div>}
-        </section>
+        <SimilarList />
         <Footer />
       </div>
     </>

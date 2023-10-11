@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, memo } from 'react';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getFilms} from '../../store/films-process/films-process.selector';
@@ -10,7 +10,7 @@ type FilmsListProps = {
   filmsCount: number;
 }
 
-function FilmsList({genre, filmsCount}: FilmsListProps): JSX.Element {
+function FilmsListRaw({genre, filmsCount}: FilmsListProps): JSX.Element {
   const films = useAppSelector(getFilms);
   const dispatch = useAppDispatch();
   const filmsByGenre = getCurrentFilmsList(films, genre);
@@ -19,7 +19,7 @@ function FilmsList({genre, filmsCount}: FilmsListProps): JSX.Element {
     dispatch(setFilmsCountByGenre(filmsByGenre.length));
   }, [filmsByGenre, dispatch]);
 
-  const currentFilmsList = filmsByGenre.slice(0, filmsCount);
+  const currentFilmsList = useMemo(() => filmsByGenre.slice(0, filmsCount), [filmsByGenre, filmsCount]) ;
 
   return (
     <div className="catalog__films-list">
@@ -27,5 +27,7 @@ function FilmsList({genre, filmsCount}: FilmsListProps): JSX.Element {
     </div>
   );
 }
+
+const FilmsList = memo(FilmsListRaw);
 
 export default FilmsList;

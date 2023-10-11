@@ -6,9 +6,9 @@ import { FormEvent, useState } from 'react';
 import { AuthData } from '../../types/auth-data';
 import { validateEmail, validatePassword } from '../../utils/utils';
 import { loginAction } from '../../store/api-actions';
+import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
-import { Helmet } from 'react-helmet-async';
 
 function AuthScreen(): JSX.Element {
   const authorizationStaus = useAppSelector(getAuthorizationStatus);
@@ -52,12 +52,26 @@ function AuthScreen(): JSX.Element {
         >
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="email" id="user-email" />
+              <input
+                className="sign-in__input"
+                type="email"
+                placeholder="Email address"
+                name="email"
+                id="user-email"
+                data-testid="loginElement"
+              />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             {!isEmailValid && <div className="sign-in__message"><p>Please enter a valid email address</p></div>}
             <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="password" id="user-password" />
+              <input
+                className="sign-in__input"
+                type="password"
+                placeholder="Password"
+                name="password"
+                id="user-password"
+                data-testid="passwordElement"
+              />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
             {!isPasswordValid && <div className="sign-in__message"><p>Please enter a valid password</p></div>}
