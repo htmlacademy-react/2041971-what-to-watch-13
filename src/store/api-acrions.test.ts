@@ -45,7 +45,7 @@ describe('Async axtions', () => {
 
   describe('fetchFilmsAction', () => {
     it('should dispatch "fetchFilmsAction.pending" and "fetchFilmsAction.fulfilled" when server response 200', () => {
-
+      const mockFilms =  
     });
   });
 });
