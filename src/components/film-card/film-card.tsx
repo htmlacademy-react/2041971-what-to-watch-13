@@ -3,12 +3,12 @@ import { getPromoFilm } from '../../store/promo-film-process/promo-film-process.
 import { fetchPromoFilmAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
 import { AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getChangeStatusError } from '../../store/favorite-process/favorite-process.selector';
 import Header from '../header/header';
 import PlayButton from '../play-button/play-button';
 import FavoritesButton from '../favorites-button/favorites-button';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import { getChangeStatusError } from '../../store/favorite-process/favorite-process.selector';
 import ErrorMessage from '../error-message/error-message';
 
 function FilmCard():JSX.Element {

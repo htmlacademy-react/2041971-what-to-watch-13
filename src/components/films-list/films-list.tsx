@@ -1,9 +1,9 @@
 import { useEffect, useMemo, memo } from 'react';
-import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getFilms} from '../../store/films-process/films-process.selector';
 import { getCurrentFilmsList } from '../../utils/utils';
 import { setFilmsCountByGenre } from '../../store/films-process/films-process.slice';
+import SmallFilmCard from '../../components/small-film-card/small-film-card';
 
 type FilmsListProps = {
   genre: string;

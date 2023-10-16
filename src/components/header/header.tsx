@@ -1,11 +1,11 @@
 import { useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
-import Logo from '../logo/logo';
-import UserBlock from '../user-block/user-block';
-import HeadGuest from '../head-guest/head-guest';
 import { AuthorizationStatus } from '../../const';
 import { getPromoFilm } from '../../store/promo-film-process/promo-film-process.selector';
 import { getFilmById } from '../../store/film-card-process/film-card-process.selector';
+import Logo from '../logo/logo';
+import UserBlock from '../user-block/user-block';
+import HeadGuest from '../head-guest/head-guest';
 
 type HeaderProps = {
     children?: React.ReactNode;

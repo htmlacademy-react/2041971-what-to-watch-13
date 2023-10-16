@@ -30,12 +30,8 @@ export const fetchFilmByIdAction = createAsyncThunk<FilmCard | null, string, {
 }>(
   'fetchFilmById',
   async(id, {extra: api}) => {
-    try {
-      const {data} = await api.get<FilmCard>(`${APIRoute.Films}/${id}`);
-      return data;
-    } catch {
-      return null;
-    }
+    const {data} = await api.get<FilmCard>(`${APIRoute.Films}/${id}`);
+    return data;
   }
 );
 
@@ -118,8 +114,7 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
-  async (_arg, {
-    extra: api}) => {
+  async (_arg, {extra: api}) => {
     const {data} = await api.get<UserData>(APIRoute.Login);
     return data;
   },

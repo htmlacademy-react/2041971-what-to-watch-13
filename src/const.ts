@@ -27,17 +27,6 @@ export enum NameSpace {
     User = 'USER',
 }
 
-export const AUTH_TOKEN_KEY_NAME = 'wtw-token';
-export const USER_AVATAR_KEY_NAME = 'avatar-url';
-export const BACKEND_URL = 'https://13.design.pages.academy/wtw';
-export const REQUEST_TIMEOUT = 5000;
-export const DEFAULT_TAB = 'Overview';
-export const DEFAULT_GENRE = 'All genres';
-export const DEFAULT_FILMS_COUNT = 8;
-export const DURATION_DIGIT = 60;
-export const RATING_DIGIT = 1;
-export const RUNTIME_DIGIT = 2;
-
 export enum APIRoute {
     Films = '/films',
     Favorite = '/favorite',
@@ -60,3 +49,15 @@ export const DateFormat = {
   DATE_TIME_FORMAT: 'YYYY-MM-DD',
   REVIEW_DATE_FORMAT: 'MMMM DD, YYYY',
 };
+
+export const AUTH_TOKEN_KEY_NAME = 'wtw-token';
+export const USER_AVATAR_KEY_NAME = 'avatar-url';
+export const BACKEND_URL = 'https://13.design.pages.academy/wtw';
+export const REQUEST_TIMEOUT = 5000;
+export const DEFAULT_TAB = 'Overview';
+export const DEFAULT_GENRE = 'All genres';
+export const DEFAULT_FILMS_COUNT = 8;
+export const DURATION_DIGIT = 60;
+export const RATING_DIGIT = 1;
+export const RUNTIME_DIGIT = 2;
+export const TIMEOUT_SHOW_ERROR = 2000;

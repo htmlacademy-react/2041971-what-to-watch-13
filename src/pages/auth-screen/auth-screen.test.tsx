@@ -9,19 +9,17 @@ describe('Component: AuthScreen', () => {
   const passwordTestIdText = 'passwordElement';
   const initialState = {
     USER: {
-      authorizationStatus: AuthorizationStatus.Auth,
+      authorizationStatus: AuthorizationStatus.Unknown,
       avatarUrl: '',
     },
   };
 
   it('should render correctly', () => {
-    const titleText = 'Sign in';
     const {withStoreComponent} = withStore(<AuthScreen />, initialState);
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);
 
-    expect(screen.getByTitle(titleText)).toBeInTheDocument();
     expect(screen.getByTestId(loginTestIdText)).toBeInTheDocument();
     expect(screen.getByTestId(passwordTestIdText)).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();

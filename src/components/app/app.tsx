@@ -1,5 +1,5 @@
-import {Route, Routes} from 'react-router-dom';
-import {AppRoute } from '../../const';
+import { Route, Routes } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { checkAuthAction, fetchFilmsAction, fetchFavoriteAction } from '../../store/api-actions';
