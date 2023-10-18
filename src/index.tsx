@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom/client';
 import HistoryRouter from './components/history-route/history-route';
 import browserHistory from './browser-history';
 import App from './components/app/app';
+import 'react-toastify/dist/ReactToastify.css';
 import { store } from './store';
 import { Provider } from 'react-redux';
-import {ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 
 const root = ReactDOM.createRoot(
