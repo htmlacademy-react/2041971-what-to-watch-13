@@ -5,6 +5,7 @@ import { createAPI } from '../services/api';
 import { Action } from 'redux';
 import { FilmCard, FilmFavoriteCard, FilmShortCard, PromoFilmCard } from '../types/film';
 import { Comment, Review } from '../types/comment';
+import { AuthorizationStatus } from '../const';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
@@ -84,4 +85,26 @@ export const makeFakePromo = (): PromoFilmCard => ({
   genre: GENRES[Math.floor(Math.random() * GENRES.length)],
   released: datatype.number(),
   isFavorite: datatype.boolean(),
+});
+
+
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+  FILMS: {films: [], filmsByGenreCount: 0, isFilmsLoading: false, hasFilmsError: false},
+  FILM_CARD: {
+    film: null,
+    similarFilms: [],
+    comments: [],
+    comment: null,
+    isFilmCardLoading: false,
+    hasFilmCardError: false,
+    isCommentsLoading: false,
+    hasCommentsError: false,
+    isSimilarError: false,
+    isCommentSending: false,
+    hasCommentSendingError: false
+  },
+  FAVORITE: {favorites: [], isFavoritesLoading: false, hasFavoritesError: false, hasChangeStatusError: false},
+  PROMO: {promoFilm: null},
+  USER: {authorizationStatus: AuthorizationStatus.NoAuth, avatarUrl: ''},
+  ...initialState ?? {},
 });

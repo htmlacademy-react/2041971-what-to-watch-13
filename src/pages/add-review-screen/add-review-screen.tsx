@@ -15,7 +15,7 @@ function AddReviewScreen(): JSX.Element {
   }
 
   return (
-    <section className="film-card film-card--full">
+    <section className="film-card film-card--full" data-testid="filmCardAddReview">
       <Helmet>
         <title>{`WTW. Add review ${film.name}`}</title>
       </Helmet>
@@ -42,7 +42,6 @@ function AddReviewScreen(): JSX.Element {
       <div className="add-review">
         <ReviewForm id={film.id} />
       </div>
-
     </section>
   );
 }

@@ -13,7 +13,7 @@ import FilmScreen from '../../pages/film-screen/film-screen';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import PrivateRoute from '../private-rout/private-rout';
+import PrivateRoute from '../private-route/private-route';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import ErrorMessage from '../error-message/error-message';
 

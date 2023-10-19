@@ -8,7 +8,6 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );

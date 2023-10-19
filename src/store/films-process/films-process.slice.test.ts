@@ -44,7 +44,7 @@ describe('FilmsProcess Slice', () => {
     expect(result.filmsByGenreCount).toBe(expectedFilmsCount);
   });
 
-  it('should set"isFilmsLoading" to true, "hasFilmsError" to false wwith "fetchFilmsAction.pending"', () => {
+  it('should set"isFilmsLoading" to true, "hasFilmsError" to false with "fetchFilmsAction.pending"', () => {
     const expectedState = {
       films: [],
       filmsByGenreCount: 0,
@@ -57,7 +57,7 @@ describe('FilmsProcess Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set"isFilmsLoading" to false, "hasFilmsError" to true wwith "fetchFilmsAction.rejected"', () => {
+  it('should set"isFilmsLoading" to false, "hasFilmsError" to true with "fetchFilmsAction.rejected"', () => {
     const expectedState = {
       films: [],
       filmsByGenreCount: 0,
@@ -70,7 +70,7 @@ describe('FilmsProcess Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "films" to array with films, "isFilmsLoading" to false, "hasFilmsError" to false wwith "fetchFilmsAction.fulfilled"', () => {
+  it('should set "films" to array with films, "isFilmsLoading" to false, "hasFilmsError" to false with "fetchFilmsAction.fulfilled"', () => {
     const films = makeFakeFilms();
     const expectedState = {
       films,

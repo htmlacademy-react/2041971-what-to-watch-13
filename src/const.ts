@@ -57,7 +57,12 @@ export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_TAB = 'Overview';
 export const DEFAULT_GENRE = 'All genres';
 export const DEFAULT_FILMS_COUNT = 8;
+export const MAX_GENRES_COUNT = 9;
+export const MAX_SIMILAR_COUNT = 4;
 export const DURATION_DIGIT = 60;
 export const RATING_DIGIT = 1;
-export const RUNTIME_DIGIT = 2;
-export const TIMEOUT_SHOW_ERROR = 2000;
+export const ReviewLength = {
+  MIN_LENGTH: 50,
+  MAX_LENGTH: 400,
+};
+

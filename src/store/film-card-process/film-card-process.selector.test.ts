@@ -1,7 +1,6 @@
 import { NameSpace } from '../../const';
 import { makeFakeComments, makeFakeFilmById, makeFakeFilms, makeFakeReview } from '../../utils/mocks';
-import { getCommentSendingErrorStatus, getCommentSendingStatus, getComments, getCommentsErrorStatus, getCommentsLoadingStatus, getFilmById, getFilmCardLoadingStatus, getSimilarErrorStatus, getSimilarFilms } from './film-card-process.selector';
-
+import { getCommentSendingErrorStatus, getCommentSendingStatus, getComments, getCommentsErrorStatus, getCommentsLoadingStatus, getFilmById, getFilmCardErrorStatus, getFilmCardLoadingStatus, getSimilarErrorStatus, getSimilarFilms } from './film-card-process.selector';
 
 describe('favorite-process selectors', () => {
   const state = {
@@ -11,6 +10,7 @@ describe('favorite-process selectors', () => {
       comments: makeFakeComments(),
       comment: makeFakeReview(),
       isFilmCardLoading: true,
+      hasFilmCardError: true,
       isCommentsLoading: true,
       hasCommentsError: false,
       isSimilarError: false,
@@ -41,6 +41,12 @@ describe('favorite-process selectors', () => {
     const {isFilmCardLoading} = state[NameSpace.FilmCard];
     const result = getFilmCardLoadingStatus(state);
     expect(result).toBe(isFilmCardLoading);
+  });
+
+  it('should return film data error status', () => {
+    const {hasFilmCardError} = state[NameSpace.FilmCard];
+    const result = getFilmCardErrorStatus(state);
+    expect(result).toBe(hasFilmCardError);
   });
 
   it('should return comments data loading status', () => {

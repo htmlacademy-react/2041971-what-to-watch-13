@@ -3,8 +3,10 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchFilmByIdAction, fetchSimilarFilmsAction } from '../../store/api-actions';
-import { getFilmById, getFilmCardLoadingStatus } from '../../store/film-card-process/film-card-process.selector';
+import { getFilmById, getFilmCardErrorStatus, getFilmCardLoadingStatus } from '../../store/film-card-process/film-card-process.selector';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
+import { Helmet } from 'react-helmet-async';
+import { getChangeStatusError } from '../../store/favorite-process/favorite-process.selector';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
@@ -13,8 +15,6 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PlayButton from '../../components/play-button/play-button';
 import FavoritesButton from '../../components/favorites-button/favorites-button';
 import ErrorMessage from '../../components/error-message/error-message';
-import { Helmet } from 'react-helmet-async';
-import { getChangeStatusError } from '../../store/favorite-process/favorite-process.selector';
 import SimilarList from '../../components/similar-list/similar-list';
 
 function FilmScreen(): JSX.Element {
@@ -23,6 +23,7 @@ function FilmScreen(): JSX.Element {
   const isLoading = useAppSelector(getFilmCardLoadingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const hasChangeStatusError = useAppSelector(getChangeStatusError);
+  const hasFilmCardError = useAppSelector(getFilmCardErrorStatus);
   const {id} = useParams();
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function FilmScreen(): JSX.Element {
     }
   }, [id, dispatch]);
 
-  if (isLoading) {
+  if (isLoading && !hasFilmCardError) {
     return <LoadingScreen />;
   }
 
