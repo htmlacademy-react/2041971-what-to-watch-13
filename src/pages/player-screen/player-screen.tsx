@@ -4,10 +4,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmById, getFilmCardLoadingStatus } from '../../store/film-card-process/film-card-process.selector';
 import { fetchFilmByIdAction } from '../../store/api-actions';
 import { getFormatRunTime } from '../../utils/utils';
+import { Helmet } from 'react-helmet-async';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import VideoPlayer from '../../components/video-player/video-player';
-import { Helmet } from 'react-helmet-async';
 
 function PlayerScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -20,6 +20,7 @@ function PlayerScreen(): JSX.Element {
     timeLeft: 0,
     timeUpdate: 0,
   });
+
   const videoRef = useRef<null | HTMLVideoElement>(null);
 
   useEffect(() => {

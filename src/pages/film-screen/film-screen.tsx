@@ -53,7 +53,7 @@ function FilmScreen(): JSX.Element {
           <Header isFilmCard >
             <h1 className="visually-hidden">WTW</h1>
           </Header>
-          <div className="film-card__wrap">
+          <div className="film-card__wrap" data-testid="filmCardWrap">
             <div className="film-card__desc">
               <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
@@ -77,7 +77,7 @@ function FilmScreen(): JSX.Element {
           </div>
         </div>
         <div className="film-card__wrap film-card__translate-top">
-          <div className="film-card__info">
+          <div className="film-card__info" data-testid="filmCardInfo">
             <div className="film-card__poster film-card__poster--big">
               <img src={posterImage} alt={name} width="218" height="327" />
             </div>

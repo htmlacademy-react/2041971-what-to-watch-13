@@ -1,13 +1,24 @@
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmById } from '../../store/film-card-process/film-card-process.selector';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { APIRoute } from '../../const';
+import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
+import { fetchFilmByIdAction } from '../../store/api-actions';
 import ReviewForm from '../../components/review-form/review-form';
 import Header from '../../components/header/header';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { Helmet } from 'react-helmet-async';
 
 function AddReviewScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {id} = useParams();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchFilmByIdAction(id));
+    }
+  }, [id, dispatch]);
+
   const film = useAppSelector(getFilmById);
 
   if(!film) {
