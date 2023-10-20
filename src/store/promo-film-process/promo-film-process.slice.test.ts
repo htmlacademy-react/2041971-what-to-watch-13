@@ -1,4 +1,5 @@
 import { makeFakePromo } from '../../utils/mocks';
+import { fetchPromoFilmAction } from '../api-actions';
 import { promoFilmProcess } from './promo-film-process.slice';
 
 describe('PromoFilmProcess Slice', () => {
@@ -20,6 +21,17 @@ describe('PromoFilmProcess Slice', () => {
     };
 
     const result = promoFilmProcess.reducer(undefined, emptyAction);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "promoFilm" with "fetchFilmsAction.fulfilled"', () => {
+    const promoFilm = makeFakePromo();
+    const expectedState = {
+      promoFilm,
+    };
+
+    const result = promoFilmProcess.reducer(undefined, fetchPromoFilmAction.fulfilled(promoFilm, '', undefined));
 
     expect(result).toEqual(expectedState);
   });

@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
-import { FilmShortCard } from '../types/film';
-import { DEFAULT_GENRE, Rating, DURATION_DIGIT } from '../const';
 import duration from 'dayjs/plugin/duration';
+import { FilmShortCard } from '../types/film';
+import { DEFAULT_GENRE, Rating, DURATION_DIGIT, ReviewLength, MAX_GENRES_COUNT } from '../const';
 
 dayjs.extend(duration);
 export function getCurrentGenresList(films: FilmShortCard[]):string[] {
-  const genres = Array.from(new Set(films.map((film) => film.genre))).slice(0, 9);
+  const genres = Array.from(new Set(films.map((film) => film.genre))).slice(0, MAX_GENRES_COUNT);
   genres.unshift(DEFAULT_GENRE);
   return genres;
 }
@@ -74,7 +74,7 @@ export function getFormatRunTime(time: number) {
   const minutes = date.minutes();
   const seconds = date.seconds();
 
-  return `${getDurationFormat(hours)}:${getDurationFormat(minutes)}:${getDurationFormat(seconds)}`;
+  return `-${hours !== 0 ? getDurationFormat(hours) : ''}:${getDurationFormat(minutes)}:${getDurationFormat(seconds)}`;
 }
 
 export function getDataFormat(data: string, format: string):string {
@@ -82,5 +82,5 @@ export function getDataFormat(data: string, format: string):string {
 }
 
 export function validateComment(comment: string) {
-  return comment.length >= 50 && comment.length <= 400;
+  return comment.length >= ReviewLength.MIN_LENGTH && comment.length <= ReviewLength.MAX_LENGTH;
 }

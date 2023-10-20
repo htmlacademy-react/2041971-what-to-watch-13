@@ -1,4 +1,4 @@
-import { Fragment, useState, ChangeEvent, FormEvent } from 'react';
+import { Fragment, useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchSendReviewAction } from '../../store/api-actions';
 import { validateComment } from '../../utils/utils';
@@ -14,11 +14,17 @@ function ReviewForm({id}: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
   const isSending = useAppSelector(getCommentSendingStatus);
   const isCommentSendingError = useAppSelector(getCommentSendingErrorStatus);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setHasError(false);
+  }, []);
 
   const [formData, setFormData] = useState({
     rating: 0,
     [REVIEW_TEXT]: '',
   });
+
   const isCommentValid = validateComment(formData[REVIEW_TEXT]);
   const [isValidComment, setValidComment] = useState(true);
 
@@ -45,6 +51,10 @@ function ReviewForm({id}: ReviewFormProps): JSX.Element {
 
     if (rating && isCommentValid) {
       dispatch(fetchSendReviewAction({id, rating, comment}));
+    }
+
+    if(!isSending && isCommentSendingError) {
+      setHasError(true);
     }
   };
 
@@ -89,7 +99,7 @@ function ReviewForm({id}: ReviewFormProps): JSX.Element {
         </div>
       </div>
       {!isValidComment && <p>The length must be more than 50 and less than 400</p>}
-      {isCommentSendingError && <p>Something went wrong, try again</p>}
+      {hasError && <p>Something went wrong, try again</p>}
     </form>
   );
 }

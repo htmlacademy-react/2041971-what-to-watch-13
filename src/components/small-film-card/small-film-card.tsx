@@ -31,18 +31,17 @@ function SmallFilmCard({film}: SmallFilmCardProps): JSX.Element {
       onMouseOver={() => setFilmMouseOver(true)}
       onMouseLeave={() => setFilmMouseOver(false)}
     >
-      {isSelectedFilm ? <VideoPlayer film={film} /> :
-        <>
-          <div
-            className="small-film-card__image"
-            onClick={() => navigate(`${AppRoute.Film}${id}`)}
-          >
-            <img src={previewImage} alt={name} width={280} height={175} />
-          </div>
-          <h3 className="small-film-card__title">
-            <Link className="small-film-card__link" to={`${AppRoute.Film}${id}`}>{name}</Link>
-          </h3>
-        </> }
+
+      <div
+        className="small-film-card__image"
+        onClick={() => navigate(`${AppRoute.Film}${id}`)}
+      >
+        {isSelectedFilm ? <VideoPlayer film={film} /> :
+          <img src={previewImage} alt={name} width={280} height={175} />}
+      </div>
+      <h3 className="small-film-card__title">
+        <Link className="small-film-card__link" to={`${AppRoute.Film}${id}`}>{name}</Link>
+      </h3>
     </article>
   );
 }

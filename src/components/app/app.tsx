@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { checkAuthAction, fetchFilmsAction, fetchFavoriteAction } from '../../store/api-actions';
@@ -13,7 +13,7 @@ import FilmScreen from '../../pages/film-screen/film-screen';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import PrivateRoute from '../private-rout/private-rout';
+import PrivateRoute from '../private-route/private-route';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import ErrorMessage from '../error-message/error-message';
 
@@ -27,8 +27,11 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(fetchFilmsAction());
     dispatch(checkAuthAction());
-    dispatch(fetchFavoriteAction());
-  }, [dispatch]);
+
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteAction());
+    }
+  }, [dispatch, authorizationStatus]);
 
   if (!isAuthChecked || isFilmsLoading) {
     return (

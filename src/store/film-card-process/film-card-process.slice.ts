@@ -9,6 +9,7 @@ const initialState: FilmCardProcess = {
   comments: [],
   comment: null,
   isFilmCardLoading: false,
+  hasFilmCardError: false,
   isCommentsLoading: false,
   hasCommentsError: false,
   isSimilarError: false,
@@ -24,10 +25,16 @@ export const filmCardProcess = createSlice({
     builder
       .addCase(fetchFilmByIdAction.pending, (state) => {
         state.isFilmCardLoading = true;
+        state.hasFilmCardError = false;
       })
       .addCase(fetchFilmByIdAction.fulfilled, (state, action) => {
         state.film = action.payload;
         state.isFilmCardLoading = false;
+        state.hasFilmCardError = false;
+      })
+      .addCase(fetchFilmByIdAction.rejected, (state) => {
+        state.isFilmCardLoading = false;
+        state.hasFilmCardError = true;
       })
       .addCase(fetchSimilarFilmsAction.fulfilled, (state, action) => {
         state.isSimilarError = false;

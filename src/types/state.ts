@@ -21,6 +21,7 @@ export type FilmCardProcess = {
     comments: Comment[];
     comment: Review | null;
     isFilmCardLoading: boolean;
+    hasFilmCardError: boolean;
     isCommentsLoading: boolean;
     hasCommentsError: boolean;
     isSimilarError: boolean;

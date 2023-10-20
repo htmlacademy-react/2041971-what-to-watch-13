@@ -11,12 +11,12 @@ import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 
 function AuthScreen(): JSX.Element {
-  const authorizationStaus = useAppSelector(getAuthorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
 
-  if (authorizationStaus === AuthorizationStatus.Auth) {
+  if (authorizationStatus === AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Main} />;
   }
 
@@ -50,6 +50,8 @@ function AuthScreen(): JSX.Element {
           className="sign-in__form"
           onSubmit={handleSubmit}
         >
+          {!isEmailValid && <div className="sign-in__message"><p>Please enter a valid email address</p></div>}
+          {!isPasswordValid && <div className="sign-in__message"><p>Please enter a valid password</p></div>}
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -62,7 +64,6 @@ function AuthScreen(): JSX.Element {
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
-            {!isEmailValid && <div className="sign-in__message"><p>Please enter a valid email address</p></div>}
             <div className="sign-in__field">
               <input
                 className="sign-in__input"
@@ -74,7 +75,6 @@ function AuthScreen(): JSX.Element {
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
-            {!isPasswordValid && <div className="sign-in__message"><p>Please enter a valid password</p></div>}
           </div>
           <div className="sign-in__submit">
             <button className="sign-in__btn" type="submit">Sign in</button>

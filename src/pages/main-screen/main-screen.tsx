@@ -10,7 +10,7 @@ function MainScreen(): JSX.Element {
         <title>{'WTW. Catalog'}</title>
       </Helmet>
       <FilmCard />
-      <div className="page-content">
+      <div className="page-content" data-testid="pageContentElement">
         <FilmsCatalog />
         <Footer />
       </div>

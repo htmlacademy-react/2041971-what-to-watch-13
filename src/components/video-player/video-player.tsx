@@ -12,6 +12,7 @@ const VideoPlayer = forwardRef<null | HTMLVideoElement, VideoPlayerProps>(({film
     ref={ref}
     src={film ? film.previewVideoLink : filmCard?.videoLink}
     className="player__video"
+    data-testid="video"
     poster={film ? film.previewImage : filmCard?.posterImage}
     muted autoPlay
     onTimeUpdate={onTimeUpdate}

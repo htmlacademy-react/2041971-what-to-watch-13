@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { useAppSelector } from '../../hooks';
-import { getFilms } from '../../store/films-process/films-process.selector';
-import { getCurrentGenresList } from '../../utils/utils';
+import { getGenresList } from '../../store/films-process/films-process.selector';
 
 type GenresListProps = {
   checkedGenre: string;
@@ -9,11 +8,10 @@ type GenresListProps = {
 }
 
 function GenresList({checkedGenre, setCheckedGenre}: GenresListProps): JSX.Element {
-  const films = useAppSelector(getFilms);
-  const genresList = getCurrentGenresList(films);
+  const genresList = useAppSelector(getGenresList);
 
   return (
-    <ul className="catalog__genres-list">
+    <ul className="catalog__genres-list" data-testid="catalogGenresCatalog">
       {genresList.map((genre) =>
         (
           <li

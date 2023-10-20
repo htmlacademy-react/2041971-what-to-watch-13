@@ -28,7 +28,7 @@ function FilmCard():JSX.Element {
   const {posterImage, name, genre, released, id} = promo;
 
   return (
-    <section className="film-card">
+    <section className="film-card" data-testid='filmCardContainer'>
       <Header isMain/>
       <div className="film-card__wrap">
         <div className="film-card__info">
