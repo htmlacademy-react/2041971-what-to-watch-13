@@ -1,11 +1,12 @@
 import { withHistory, withStore } from '../../utils/mock-component';
 import { render, screen } from '@testing-library/react';
-import { makeFakeFilmById, makeFakeStore } from '../../utils/mocks';
-import AddReviewScreen from './add-review-screen';
+import { makeFakeFilmById, makeFakePromo, makeFakeStore } from '../../utils/mocks';
 import { AuthorizationStatus } from '../../const';
+import Header from './header';
 
-describe('Component: AddReviewScreen', () => {
+describe('Component: Header', () => {
   const film = makeFakeFilmById();
+  const promoFilm = makeFakePromo();
   const fakeStore = makeFakeStore({
     USER: {authorizationStatus: AuthorizationStatus.Auth, avatarUrl: ''},
     FILM_CARD: {
@@ -20,11 +21,14 @@ describe('Component: AddReviewScreen', () => {
       isSimilarError: false,
       isCommentSending: false,
       hasCommentSendingError: false
+    },
+    PROMO: {
+      promoFilm
     }
   });
   it('should render correctly', () => {
-    const expectedText = 'Add review';
-    const {withStoreComponent} = withStore(<AddReviewScreen />, fakeStore);
+    const expectedText = 'WTW';
+    const {withStoreComponent} = withStore(<Header />, fakeStore);
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);

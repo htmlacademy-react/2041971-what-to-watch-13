@@ -22,7 +22,7 @@ function FilmsListRaw({genre, filmsCount}: FilmsListProps): JSX.Element {
   const currentFilmsList = useMemo(() => filmsByGenre.slice(0, filmsCount), [filmsByGenre, filmsCount]) ;
 
   return (
-    <div className="catalog__films-list">
+    <div className="catalog__films-list" data-testid="catalogFilmsContainer">
       {currentFilmsList.map((film) => <SmallFilmCard key={film.id} film={film} />)}
     </div>
   );

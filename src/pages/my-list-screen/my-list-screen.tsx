@@ -28,7 +28,6 @@ function MyListScreen(): JSX.Element {
         <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{favoritesCount}</span></h1>
         <UserBlock />
       </header>
-      {/* {hasError && <ErrorMessage />} */}
       {isLoading ? <LoadingScreen /> : <FavoritesList favorites={favorites} />}
       <Footer />
     </div>

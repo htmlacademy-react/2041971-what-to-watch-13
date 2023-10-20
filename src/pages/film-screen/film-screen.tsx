@@ -45,7 +45,7 @@ function FilmScreen(): JSX.Element {
 
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" data-testid="filmCardContainer">
         <Helmet>
           <title>{`WTW. ${name}`}</title>
         </Helmet>

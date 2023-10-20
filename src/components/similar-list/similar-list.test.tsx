@@ -1,16 +1,15 @@
 import { withHistory, withStore } from '../../utils/mock-component';
 import { render, screen } from '@testing-library/react';
-import { makeFakeFilmById, makeFakeStore } from '../../utils/mocks';
-import AddReviewScreen from './add-review-screen';
-import { AuthorizationStatus } from '../../const';
+import { makeFakeFilmById, makeFakeFilms, makeFakeStore } from '../../utils/mocks';
+import SimilarList from './similar-list';
 
-describe('Component: AddReviewScreen', () => {
+describe('Component: SimilarList', () => {
   const film = makeFakeFilmById();
+  const similarFilms = makeFakeFilms();
   const fakeStore = makeFakeStore({
-    USER: {authorizationStatus: AuthorizationStatus.Auth, avatarUrl: ''},
     FILM_CARD: {
       film,
-      similarFilms: [],
+      similarFilms,
       comments: [],
       comment: null,
       isFilmCardLoading: false,
@@ -23,8 +22,8 @@ describe('Component: AddReviewScreen', () => {
     }
   });
   it('should render correctly', () => {
-    const expectedText = 'Add review';
-    const {withStoreComponent} = withStore(<AddReviewScreen />, fakeStore);
+    const expectedText = 'More like this';
+    const {withStoreComponent} = withStore(<SimilarList/>, fakeStore);
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);

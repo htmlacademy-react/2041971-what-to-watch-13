@@ -13,7 +13,7 @@ export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({
 
 const GENRES = ['All genres', 'Comedies', 'Crime', 'Documentary', 'Dramas', 'Horror', 'Kids & Family', 'Romance', 'Sci-Fi', 'Thrillers'];
 
-const makeFakeFilm = (): FilmShortCard => ({
+export const makeFakeFilm = (): FilmShortCard => ({
   id: crypto.randomUUID(),
   name: random.words(),
   previewImage: system.filePath(),
@@ -41,7 +41,7 @@ export const makeFakeFilmById = (): FilmCard => ({
   isFavorite: datatype.boolean()
 });
 
-const makeFakeComment = (): Comment => ({
+export const makeFakeComment = (): Comment => ({
   id: crypto.randomUUID(),
   date: String(date.recent()),
   user: name.findName(),

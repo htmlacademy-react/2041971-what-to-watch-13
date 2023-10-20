@@ -9,7 +9,7 @@ type LogoProps = {
 
 function Logo({isFooter, isMain}: LogoProps): JSX.Element {
   return(
-    <div className="logo">
+    <div className="logo" data-testid="logoContainer">
       {isFooter || isMain ?
         <a className={classNames('logo__link', {'logo__link--light': isFooter})}>
           <span className="logo__letter logo__letter--1">W</span>

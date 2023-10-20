@@ -1,8 +1,8 @@
 import { withHistory, withStore } from '../../utils/mock-component';
 import { render, screen } from '@testing-library/react';
 import { makeFakeFilmById, makeFakeStore } from '../../utils/mocks';
-import AddReviewScreen from './add-review-screen';
 import { AuthorizationStatus } from '../../const';
+import FilmScreen from './film-screen';
 
 describe('Component: AddReviewScreen', () => {
   const film = makeFakeFilmById();
@@ -23,12 +23,12 @@ describe('Component: AddReviewScreen', () => {
     }
   });
   it('should render correctly', () => {
-    const expectedText = 'Add review';
-    const {withStoreComponent} = withStore(<AddReviewScreen />, fakeStore);
+    const expectedTestId = 'filmCardContainer';
+    const {withStoreComponent} = withStore(<FilmScreen />, fakeStore);
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);
 
-    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId(expectedTestId)).toBeInTheDocument();
   });
 });
