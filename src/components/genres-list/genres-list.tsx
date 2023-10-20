@@ -2,13 +2,14 @@ import classNames from 'classnames';
 import { useAppSelector } from '../../hooks';
 import { getFilms } from '../../store/films-process/films-process.selector';
 import { getCurrentGenresList } from '../../utils/utils';
+import { memo } from 'react';
 
 type GenresListProps = {
   checkedGenre: string;
   setCheckedGenre: (genre: string) => void;
 }
 
-function GenresList({checkedGenre, setCheckedGenre}: GenresListProps): JSX.Element {
+function Genres({checkedGenre, setCheckedGenre}: GenresListProps): JSX.Element {
   const films = useAppSelector(getFilms);
   const genresList = getCurrentGenresList(films);
 
@@ -34,5 +35,7 @@ function GenresList({checkedGenre, setCheckedGenre}: GenresListProps): JSX.Eleme
     </ul>
   );
 }
+
+const GenresList = memo(Genres);
 
 export default GenresList;

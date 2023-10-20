@@ -74,7 +74,7 @@ export function getFormatRunTime(time: number) {
   const minutes = date.minutes();
   const seconds = date.seconds();
 
-  return `${getDurationFormat(hours)}:${getDurationFormat(minutes)}:${getDurationFormat(seconds)}`;
+  return `-${hours !== 0 ? getDurationFormat(hours) : ''}:${getDurationFormat(minutes)}:${getDurationFormat(seconds)}`;
 }
 
 export function getDataFormat(data: string, format: string):string {

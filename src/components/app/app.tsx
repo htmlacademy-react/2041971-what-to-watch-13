@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { checkAuthAction, fetchFilmsAction, fetchFavoriteAction } from '../../store/api-actions';
@@ -27,8 +27,11 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(fetchFilmsAction());
     dispatch(checkAuthAction());
-    dispatch(fetchFavoriteAction());
-  }, [dispatch]);
+
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteAction());
+    }
+  }, [dispatch, authorizationStatus]);
 
   if (!isAuthChecked || isFilmsLoading) {
     return (

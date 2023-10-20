@@ -1,5 +1,5 @@
 import { withHistory, withStore } from '../../utils/mock-component';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { makeFakeFilmById, makeFakeStore, extractActionsTypes } from '../../utils/mocks';
 import AddReviewScreen from './add-review-screen';
 import { APIRoute, AuthorizationStatus } from '../../const';
@@ -36,7 +36,7 @@ describe('Component: AddReviewScreen', () => {
   it('should dispatch "fetchFilmByIdAction" when the page load', () => {
     const {withStoreComponent, mockStore, mockAxiosAdapter} = withStore(<AddReviewScreen />, fakeStore);
     mockAxiosAdapter.onGet(`${APIRoute.Films}/${film.id}`, film.id).reply(200, film);
-
+    console.log(withStoreComponent, mockStore, mockAxiosAdapter);
     render(withStoreComponent);
 
     const actions = extractActionsTypes(mockStore.getActions());
